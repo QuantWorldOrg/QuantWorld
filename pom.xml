@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.1.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>com.shawn</groupId>
+  <artifactId>quant</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>quant</name>
+  <description>Demo project for Spring Boot</description>
+
+  <properties>
+    <com.google.guava.version>17.0</com.google.guava.version>
+    <druid.version>1.1.12</druid.version>
+    <fastjson.version>1.2.54</fastjson.version>
+    <gson.version>2.8.2</gson.version>
+    <java-websocket.version>1.5.0</java-websocket.version>
+    <java.version>1.8</java.version>
+    <jmockit.version>1.48</jmockit.version>
+    <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+    <mybatis.spring.boot.version>1.2.0</mybatis.spring.boot.version>
+    <okhttp.version>3.10.0</okhttp.version>
+    <org.apache.commons.version>3.8.1</org.apache.commons.version>
+    <org.jsoup.version>1.9.2</org.jsoup.version>
+    <org.webjars.Eonasdan-bootstrap-datetimepicker.version>4.17.47</org.webjars.Eonasdan-bootstrap-datetimepicker.version>
+    <org.webjars.bootstrap-table.version>1.15.5</org.webjars.bootstrap-table.version>
+    <org.webjars.bower.version>3.3.6</org.webjars.bower.version>
+    <org.webjars.jquery.version>2.0.0</org.webjars.jquery.version>
+    <org.webjars.momentjs.version>2.10.3</org.webjars.momentjs.version>
+    <org.webjars.vue-resource.version>0.7.0</org.webjars.vue-resource.version>
+    <org.webjars.vue.version>2.6.11</org.webjars.vue.version>
+    <org.webjars.webjars-locator.version>0.33</org.webjars.webjars-locator.version>
+    <org.testng.version>7.1.0</org.testng.version>
+    <net.openhft.affinity.version>3.2.3</net.openhft.affinity.version>
+  </properties>
+
+  <dependencies>
+    <!-- jpa 模块-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <!-- 支持web模块-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- websocket-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
+    <!-- 热启动-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- thymeleaf -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <!-- email -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>nz.net.ultraq.thymeleaf</groupId>
+      <artifactId>thymeleaf-layout-dialect</artifactId>
+    </dependency>
+
+    <!-- Redis -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+      <exclusions>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-pool2</artifactId>
+    </dependency>
+    <!--netty-->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+    </dependency>
+    <!-- 测试模块，包括JUnit、Hamcrest、Mockito-->
+    <dependency>
+      <groupId>org.jmockit</groupId>
+      <artifactId>jmockit</artifactId>
+      <version>${jmockit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <!--Json 解析工具-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson.version}</version>
+    </dependency>
+    <!--数据库连接池配置-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>${druid.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>${mybatis.spring.boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+      <version>${okhttp.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${gson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.java-websocket</groupId>
+      <artifactId>Java-WebSocket</artifactId>
+      <version>${java-websocket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${com.google.guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${org.apache.commons.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>${org.webjars.bower.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>Eonasdan-bootstrap-datetimepicker</artifactId>
+      <version>${org.webjars.Eonasdan-bootstrap-datetimepicker.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap-table</artifactId>
+      <version>${org.webjars.bootstrap-table.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>momentjs</artifactId>
+      <version>${org.webjars.momentjs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>vue</artifactId>
+      <version>${org.webjars.vue.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>vue-resource</artifactId>
+      <version>${org.webjars.vue-resource.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>${org.jsoup.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>${org.webjars.jquery.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-locator</artifactId>
+      <version>${org.webjars.webjars-locator.version}</version>
+    </dependency>
+    <!--   MongoDB     -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${org.testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Thread Affinity -->
+    <dependency>
+      <groupId>net.openhft</groupId>
+      <artifactId>affinity</artifactId>
+      <version>${net.openhft.affinity.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <fork>true</fork>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+          <argLine>
+            -javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar=coverage
+          </argLine>
+          <systemPropertyVariables>
+            <disableXmlReport>true</disableXmlReport>
+            <coverage-output>html</coverage-output>
+            <coverage-metrics>all</coverage-metrics>
+            <coverage-classes>loaded</coverage-classes>
+            <coverage-srcDirs>src</coverage-srcDirs>
+            <coverage-check>80</coverage-check>
+            <coverage-outputDir>${project.build.directory}/codecoverage-output</coverage-outputDir>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <repository>
+      <id>aliyun public</id>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </repository>
+
+    <repository>
+      <id>aliyun central</id>
+      <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+    </repository>
+
+    <repository>
+      <id>uk maven</id>
+      <url>http://uk.maven.org/maven2/</url>
+    </repository>
+
+    <repository>
+      <id>oschina public</id>
+      <url>http://maven.oschina.net/content/groups/public/</url>
+    </repository>
+
+    <repository>
+      <id>default repo</id>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>aliyun central</id>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>maven central</id>
+      <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>maven</id>
+      <url>http://uk.maven.org/maven2/</url>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>oschina public</id>
+      <url>http://maven.oschina.net/content/groups/public/</url>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>default repo</id>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+</project>

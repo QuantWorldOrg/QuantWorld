@@ -1,0 +1,77 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
+<link rel="stylesheet" th:href="@{/vendor/fontawesome/css/font-awesome.min.css}"/>
+<link rel="stylesheet" th:href="@{/vendor/simple-line-icons/css/simple-line-icons.css}">
+<link rel="stylesheet" th:href="@{/media/css/bootstrap.css}" id="bscss">
+<link rel="stylesheet" th:href="@{/media/css/app.css}" id="maincss"/>
+<link rel="stylesheet" th:href="@{/media/css/theme-i.css}" id="maincss">
+<body>
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title ng-scope">交易所选择</h3>
+          </div>
+          <div class="panel-body">
+            <form role="form">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse" style="">
+                    <option value="0" >数字货币</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse">
+                    <option value="0" >火币</option>
+                    <option value="1" >币安</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title ng-scope">配置参数</h3>
+          </div>
+          <div class="panel-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="exampleInputEmail1">
+                  Access Key
+                </label>
+                <input type="text" class="form-control" id="exampleInputEmail1"/>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">
+                  Secret Key
+                </label>
+                <input type="password" class="form-control" id="exampleInputPassword1"/>
+              </div>
+            </form>
+            <button type="submit" class="btn btn-primary">
+              添加交易所
+            </button>
+            <button type="button" class="btn btn-sm btn-warning">
+              取消
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+<script th:src="@{/webjars/vue/2.6.11/vue.min.js}"></script>
+<script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
+<script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
+<script type='text/javascript' th:inline="javascript">
+</script>
+</html>
+

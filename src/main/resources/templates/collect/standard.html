@@ -1,0 +1,444 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout :: htmlhead" th:with="title='strategies'"></head>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}">
+<link rel="stylesheet" th:href="@{/vendor/fontawesome/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/vendor/simple-line-icons/css/simple-line-icons.css}">
+<link rel="stylesheet" th:href="@{/media/css/bootstrap.css}" id="bscss">
+<link rel="stylesheet" th:href="@{/media/css/app.css}" id="appcss">
+<link rel="stylesheet" th:href="@{/media/css/theme-i.css}" id="themecss">
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-table/1.15.5/bootstrap-table.min.css}"/>
+
+<body>
+<section>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <div class="col-md-12">
+                <h3 id="strategyName"
+                    style="color:#000000"
+                    class="mt text-thin"
+                    th:text="${strategyName}"></h3>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title ng-scope">今日交易数据</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="view" id="transactionData">
+                                        <table id="recordsTodayTable" class="table table-hover"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" id="historyTradingData">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title ng-scope">历史交易数据</h3>
+                    </div>
+                    <div class="panel-body" id="allTradingAndProfitVolume">
+                        <div class="row">
+                            <div class="col-md-5 form-inline">
+                                <label for="startDate">开始时间</label>
+                                <input type='text' class="form-control" placeholder="开始时间" id="startDate"
+                                       style="width: 40%"/>
+                            </div>
+                            <div class="col-md-5 form-inline" style="text-align: left">
+                                <label for="endDate">结束时间</label>
+                                <input type='text' class="form-control" placeholder="结束时间" id="endDate"
+                                       style="width: 40%"/>
+                            </div>
+                            <div class="col-md-2 form-inline">
+                                <button id="search" type="submit" class="btn btn-primary">搜索
+                                </button>
+                            </div>
+                        </div>
+                        <div id="historicalTradingAndProfitChart" style="width: auto;height:300px;"></div>
+                        <div class="row">
+                            <div class="col-md-6 form-inline" style="text-align: right">
+                                <label style="font-size: 150%; text-align: right">累计交易量: {{tradingVolume}}
+                                    (USDT)</label>
+                            </div>
+                            <div class="col-md-6 form-inline">
+                                <label style="font-size: 150%; text-align: left">累计利润: {{profitVolume}} (USDT)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <form id="form" data-parsley-validate="true" onsubmit="return false">
+                    <div class="panel panel-default" th:if="${immutableParameter.size() > 0}">
+                        <div class="panel-heading">
+                            <h3 class="panel-title ng-scope">策略基本参数</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group" >
+                                <div class="col-md-3"
+                                     th:each="strategyParamKey : ${immutableParameter.keySet()}">
+                                    <label th:text="${properties.get(strategyParamKey)}"></label>
+                                    <input type="text" class="form-control"
+                                           th:name="${strategyParamKey}"
+                                           th:value="${immutableParameter.get(strategyParamKey)}"
+                                           readonly="readonly"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" th:if="${mutableParameter.size() > 0}">
+                        <div class="panel-heading">
+                            <h3 class="panel-title ng-scope">策略可调参数</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-3"
+                                     th:each="item, mutableParam : *{mutableParameter}">
+                                    <label th:text="*{properties.get(mutableParam.current.key)}"></label>
+                                    <input type="text" class="form-control"
+                                           th:name="*{mutableParam.current.key}"
+                                           th:value="*{mutableParam.current.value}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12">
+                <button id="startStrategy"
+                        type="submit"
+                        class="btn btn-sm btn-success"
+                        th:if="${strategyRunningFlag eq false}">
+                    运行策略
+                </button>
+                <button id="stopStrategy"
+                        type="submit"
+                        class="btn btn-sm btn-warning"
+                        th:if="${strategyRunningFlag eq true}">
+                    停止策略
+                </button>
+                <button id="deleteStrategy" type="submit" class="btn btn-sm btn-danger">
+                    删除策略
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+<script th:src="@{/webjars/vue/2.6.11/vue.min.js}"></script>
+<script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
+<script th:src="@{/vendor/jquery/dist/jquery.js}"></script>
+<script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/momentjs/2.10.3/moment.js}"></script>
+<script th:src="@{/webjars/bootstrap-table/1.15.5/bootstrap-table.js}"
+        charset="UTF-8"></script>
+<script type='text/javascript' th:inline="javascript">
+  var allTradingAndProfitVolumeVM = new Vue({
+    el: '#allTradingAndProfitVolume',
+    data: {
+      tradingVolume: '',
+      profitVolume: ''
+    }
+  });
+
+  $(function () {
+    toastr.options = {
+      'closeButton': true,
+      'positionClass': 'toast-top-center',
+      'timeOut': '5000',
+    };
+
+    $("#startStrategy").click(function () {
+      const fields = $('#form').serializeArray();
+      const strategyParam = {};
+      $.each(fields, function (index, field) {
+        strategyParam[field.name] = field.value;
+      });
+      const strategyData = {
+        uuid: [[${uuid}]],
+        strategyName: $('#strategyName').text(),
+        strategyParam: strategyParam
+      };
+      const ok = $('#form').parsley().isValid({force: true});
+      if (ok) {
+        const url = '/standard/startStrategyAlert/';
+        $('#modal-start').load(url, strategyData, function (response, status, xhr) {
+          if ('success' === status) {
+            $("#modal-start").modal();
+          }
+        });
+      }
+    });
+
+    $("#deleteStrategy").click(function () {
+      const fields = $('#form').serializeArray();
+      const strategyParam = {};
+      $.each(fields, function (index, field) {
+        strategyParam[field.name] = field.value;
+      });
+      const strategyData = {
+        uuid: [[${uuid}]],
+        strategyName: $('#strategyName').text(),
+        strategyParam: strategyParam
+      };
+      const ok = $('#form').parsley().isValid({force: true});
+      if (ok) {
+        const url = '/standard/deleteStrategyAlert/' + strategyData.uuid + '/' + strategyData.strategyName;
+        $('#modal-remove').load(url, function (response, status, xhr) {
+          if ('success' === status) {
+            $("#modal-remove").modal();
+          }
+        });
+      }
+    });
+
+    $("#stopStrategy").click(function () {
+      const fields = $('#form').serializeArray();
+      const strategyParam = {};
+      $.each(fields, function (index, field) {
+        strategyParam[field.name] = field.value;
+      });
+      const strategyData = {
+        uuid: [[${uuid}]],
+        strategyName: $('#strategyName').text(),
+        strategyParam: strategyParam
+      };
+      const ok = $('#form').parsley().isValid({force: true});
+      if (ok) {
+        const url = '/standard/stopStrategyAlert/' + strategyData.uuid + '/' + strategyData.strategyName;
+        $('#modal-stop').load(url, function (response, status, xhr) {
+          if ('success' === status) {
+            $("#modal-stop").modal();
+          }
+        });
+      }
+    });
+
+    searchRecords();
+    initDataTimePicker();
+    getRecords();
+    getRecordsToday();
+  });
+
+  function searchRecords() {
+    $("#search").click(function () {
+      const ok = $('#form').parsley().isValid({force: true});
+      let startDate = $('#startDate').val();
+      if (startDate === '') {
+        startDate = '1900-01-01'
+      }
+      let endDate = $('#endDate').val();
+      if (endDate === '') {
+        endDate = '9999-12-31'
+      }
+      if (ok) {
+        $.ajax({
+          async: true,
+          type: 'GET',
+          url: '/monitor/getHistoricalTradingAndProfitDataBetweenStartAndEndDate/'
+              + [[${strategyName}]]
+              + '/' + startDate
+              + '/' + endDate,
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(textStatus);
+            console.log(errorThrown);
+          },
+          success: function (result) {
+            if (result.rspCode === '000000') {
+              const data = result.data;
+              allTimeChart(data['TradeData'], data['ProfitData']);
+              allTradingAndProfitVolumeVM.tradingVolume = data['allTradingVolume'][0];
+              allTradingAndProfitVolumeVM.profitVolume = data['allProfitVolume'][0];
+            }
+          }
+        });
+      }
+    });
+  }
+
+  function getRecords() {
+    $.ajax({
+      async: true,
+      type: 'GET',
+      url: '/monitor/getHistoricalTradingAndProfitData/' + [[${strategyName}]],
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        console.log(XMLHttpRequest);
+        console.log(textStatus);
+        console.log(errorThrown);
+      },
+      success: function (result) {
+        if (result.rspCode === '000000') {
+          const data = result.data;
+          allTimeChart(data['TradeData'], data['ProfitData']);
+          allTradingAndProfitVolumeVM.tradingVolume = data['allTradingVolume'][0];
+          allTradingAndProfitVolumeVM.profitVolume = data['allProfitVolume'][0];
+        }
+      }
+    });
+  }
+
+  function initDataTimePicker() {
+    $('#startDate').datetimepicker({
+      minView: "month",
+      language: 'zh-CN',
+      format: 'yyyy-mm-dd',
+      todayBtn: 1,
+      autoClose: 1
+    });
+
+    $('#endDate').datetimepicker({
+      minView: "month",
+      language: 'zh-CN',
+      format: 'yyyy-mm-dd',
+      todayBtn: 1,
+      autoClose: 1
+    });
+  }
+
+  function getRecordsToday() {
+    $('#recordsTodayTable').bootstrapTable({
+      method: 'get',
+      url: "/monitor/getHistoricalTradeData/" + [[${strategyName}]],//请求路径
+      striped: true, //是否显示行间隔色
+      pageNumber: 1, //初始化加载第一页
+      pagination: true,//是否分页
+      sidePagination: 'client',//server:服务器端分页|client：前端分页
+      pageSize: 10,//单页记录数
+      pageList: [5, 10, 20, 30, 50],//可选择单页记录数
+      showRefresh: false,//刷新按钮
+      queryParams: function (msg) {//上传服务器的参数
+        var temp = {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
+          // limit : params.limit, // 每页显示数量
+          // offset : params.offset, // SQL语句起始索引
+          //name: $("#name").val(),//按条件搜索
+        };
+        return temp;
+      },
+      columns: [
+        {
+          title: '交易编号',
+          field: 'tradeId'
+        }, {
+          title: '订单编号',
+          field: 'orderId'
+        }, {
+          title: '策略名',
+          field: 'strategyName'
+        }, {
+          title: '交易所',
+          field: 'exchange'
+        }, {
+          title: '交易商品',
+          field: 'symbol'
+        }, {
+          title: '交易类型',
+          field: 'direction'
+        }, {
+          title: '成交数量',
+          field: 'volume'
+        }, {
+          title: '成交价格',
+          field: 'price'
+        }, {
+          title: '利润',
+          field: 'profit'
+        }, {
+          title: '时间',
+          field: 'createdTime'
+        }
+      ]
+    });
+  }
+
+  function allTimeChart(historicalTradingVolume, historicalTradingProfit) {
+    const myChart = echarts.init(document.getElementById('historicalTradingAndProfitChart'));
+
+    myChart.setOption(option = {
+      tooltip: { //鼠标悬停提示内容
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+          type: 'cross'    // 十字线显示
+        }
+      },
+      legend: {
+        y: '20px',
+        data: ['今日交易量', '今日理论利润'],
+        selectedMode: false,
+      },
+      toolbox: {
+        left: 'center',
+        feature: {
+          dataZoom: {
+            yAxisIndex: 'none'
+          },
+          dataView: {},
+          restore: {},
+          saveAsImage: {}
+        }
+      },
+      dataZoom: [{
+        startValue: '1900-01-01'
+      }, {
+        type: 'inside'
+      }],
+      xAxis: {
+        data: historicalTradingProfit.map(function (item) {
+          return item[0];
+        }),
+        silent: false,
+        splitLine: {
+          show: false
+        }
+      },
+      yAxis: [
+        {
+          name: '交易量(USDT)',
+          nameLocation: 'end',
+          type: 'value'
+        },
+        {
+          name: '理论利润(USDT)',
+          nameLocation: 'end',
+          type: 'value'
+        }
+      ],
+      series: [{
+        name: '今日交易量',
+        smooth: true,
+        type: 'line',
+        data: historicalTradingVolume.map(function (item) {
+          return item[1];
+        })
+      }, {
+        name: '今日理论利润',
+        type: 'line',
+        yAxisIndex: 1,
+        smooth: true,
+        data: historicalTradingProfit.map(function (item) {
+          return item[1];
+        })
+      }],
+      grid: {
+        left: 50,
+        right: 50
+      }
+    });
+    //根据窗口的大小变动图表 --- 重点
+    window.onresize = myChart.resize();
+  }
+</script>
+</html>
+

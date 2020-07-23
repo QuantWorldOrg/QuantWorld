@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside class="aside" th:fragment="left">
+  <div class="aside-inner">
+    <nav class="sidebar" data-sidebar-anyclick-close="">
+      <ul class="nav">
+        <li class="has-user-block">
+          <div class="item user-block">
+            <div class="user-block-picture">
+              <div class="user-block-status">
+                <!--TODO Add personal configration-->
+                <!--<a href="javascript:void(0);" th:onclick="'locationUrl(\'/user/'+${user.id}+'/0\',\'\');'">-->
+                <img alt="" class="img-thumbnail img-circle"
+                     th:src="${user.profilePicture == null?'img/favicon.png':user.profilePicture}"
+                     id="leftProfilePicture"/></a>
+                <div class="circle circle-success circle-lg"></div>
+              </div>
+            </div>
+            <div class="user-block-info">
+              <div class="user-block-name" th:text="'欢迎  '+${user.userName}" id="leftUserName">欢迎 欢迎</div>
+              <div class="user-block-role"
+                   th:text="${user.introduction == null ? '暂无简介' : user.introduction.length() gt 10 ? user.introduction.substring(0,10)+'...' : user.introduction}"
+                   id="leftIntroduction">暂无简介
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="" id="exchange">
+          <a title="交易所" href="javascript:void(0);" onclick="locationUrl('/standard/exchange','exchange')">
+            <em class="icon-home"></em>
+            <span>交易所</span>
+          </a>
+        </li>
+        <li class="" id="contract">
+          <a title="合约查询" href="javascript:void(0);" onclick="locationUrl('/standard/contract','contract')">
+            <em class="icon-list"></em>
+            <span>合约查询</span>
+          </a>
+        </li>
+        <li class=" ">
+          <a data-toggle="collapse" title="策略库" href="#strategy">
+            <em class="icon-folder"></em>
+            <span>策略库</span>
+          </a>
+          <ul class="nav sidebar-subnav collapse" id="strategy">
+            <li class="sidebar-subnav-header">策略库</li>
+            <li id="newStrategy" class=" ">
+              <a title="+ 新建策略" href="javascript:void(0);"
+                 onclick="locationUrl('/newStrategyTemplate','newStrategyTemplate')">
+                <span>+ 新建策略</span>
+              </a>
+            </li>
+            <li id="strategiesSelect" class=" "></li>
+          </ul>
+        </li>
+        <li class="" id="transactionCenter">
+          <a title="交易中心" href="javascript:void(0);"
+             onclick="locationUrl('/standard/transactionCenter','transactionCenter')">
+            <em class="icon-key"></em>
+            <span>交易中心</span>
+          </a>
+        </li>
+        <li class="" id="personalAsset">
+          <a title="个人资产" href="javascript:void(0);" onclick="locationUrl('/standard/personalAsset','personalAsset')">
+            <em class="icon-wallet"></em>
+            <span>个人资产</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
+</body>
+</html>
+

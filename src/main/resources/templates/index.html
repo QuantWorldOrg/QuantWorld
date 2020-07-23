@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="宽界 | 让交易量化 | 量化交易 | 宽客"/>
+  <meta name="author" content=""/>
+
+  <title>宽界 | 让交易量化</title>
+  <link rel="icon" href="/img/icon.ico" type="image/x-icon"/>
+  <!-- Bootstrap Core CSS -->
+  <link href="index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Theme CSS -->
+  <link href="index/css/freelancer.min.css" rel="stylesheet"/>
+
+  <!-- Custom Fonts -->
+  <link href="index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+  <style>
+    #portfolio .portfolio-item .portfolio-link .caption .caption-content {
+      top: 36%;
+    }
+
+    #portfolio .portfolio-item .portfolio-link .caption .caption-content p {
+      font-size: 16px;
+      line-height: 24px;
+      margin: 24px 16px 0;
+    }
+
+    #portfolio .portfolio-item .portfolio-link {
+      height: 260px;
+      overflow: hidden;
+    }
+
+    #portfolio .portfolio-item:nth-child(1) .portfolio-link {
+      background: #ba4c63;
+    }
+
+    #portfolio .portfolio-item:nth-child(2) .portfolio-link {
+      background: #1fa4b6;
+    }
+
+    #portfolio .portfolio-item:nth-child(3) .portfolio-link {
+      background: #f8a3a3;
+    }
+
+    #portfolio .portfolio-item:nth-child(4) .portfolio-link {
+      background: #1d83c1;
+    }
+
+    #portfolio .portfolio-item:nth-child(5) .portfolio-link {
+      background: #18bc9c;
+    }
+
+    #portfolio .portfolio-item:nth-child(6) .portfolio-link {
+      background: #ccb2a3;
+    }
+
+    #portfolio .portfolio-item .portfolio-link .img-responsive {
+      width: 180px;
+      height: 180px;
+      display: block;
+      border-radius: 50%;
+      margin: 40px auto;
+    }
+  </style>
+
+
+</head>
+
+<body id="page-top" class="index">
+
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+      </button>
+      <a class="navbar-brand" href="#page-top">宽界</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/login" th:unless="${user != null}">登录</a>
+          <a href="/" th:if="${user != null}" th:text="${user.userName}" class="userName"></a>
+        </li>
+        <li class="hidden">
+          <a href="#page-top"></a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+
+<!-- Header -->
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="intro-text">
+          <span class="name">宽界</span>
+          <hr class="star-light"/>
+          <span class="skills">量化交易平台</span>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <img class="img-responsive" src="index/img/quantworld.png" alt=""/>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--Contact Section -->
+<section id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2>商务合作</h2>
+        <hr class="star-primary"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <br/><br/><br/>
+        <p> 宽界是一个自用量化交易平台，也提供商务合作渠道。
+        </p>
+        <p>
+          若有问题可以发送邮件找到我们：
+        </p>
+        <p>
+          Email:
+          <a href="mailto:shawnpeng@yeah.net">
+            shawnpeng@yeah.net
+          </a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--&lt;!&ndash; Footer &ndash;&gt;-->
+<!--<footer class="text-center">-->
+<!--<div class="footer-above">-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="footer-col col-md-4">-->
+<!--<h3>位置</h3>-->
+<!--<p>银河系-->
+<!--<br./>地球, 中国，北京</p>-->
+<!--</div>-->
+<!--<div class="footer-col col-md-4">-->
+<!--<h3>联系我们</h3>-->
+<!--<ul class="list-inline">-->
+<!--<li>-->
+<!--<img src="http://www.ityouknow.com/assets/images/keeppuresmile.jpg" style="width: 60%;" />-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="footer-col col-md-4">-->
+<!--<h3>关于网站</h3>-->
+<!--<p>程序员的收藏社区</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="footer-below">-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col-lg-12">-->
+<!--Copyright &copy; QuantWorld 2019 - 2020-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</footer>-->
+
+<!--&lt;!&ndash; Scroll to Top Button (Only visible on small and extra-small screen sizes) &ndash;&gt;-->
+<!--<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">-->
+<!--<a class="btn btn-primary" href="#page-top">-->
+<!--<i class="fa fa-chevron-up"></i>-->
+<!--</a>-->
+<!--</div>-->
+
+<!-- jQuery -->
+<script src="index/vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="index/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="index/js/jqBootstrapValidation.js"></script>
+<script src="index/js/contact_me.js"></script>
+
+<!-- Theme JavaScript -->
+<script src="index/js/freelancer.min.js"></script>
+<div style="display:none">
+  <script
+      type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cspan id='cnzz_stat_icon_1260466344'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1260466344' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
+<!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.6/dist/css/bootstrap.min.css}">-->
+<link rel="stylesheet" th:href="@{/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css}">
+
+<body>
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="app">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title ng-scope">策略选择</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="col-md-12">
+                    <fieldset>
+                      <div class="form-group">
+                        <label>交易所</label>
+                        <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                                v-model="newStrategyRecord.exchangeType">
+                          <option value="Huobi">Huobi</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>交易商品</label>
+                        <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                                v-model="newStrategyRecord.tradingGoods">
+                          <option value="BTC">BTC</option>
+                          <option value="ZIL">ZIL</option>
+                          <option value="ONT">ONT</option>
+                          <option value="EOS">EOS</option>
+                          <option value="HT">HT</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>交易策略:</label>
+                        <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                                v-model="newStrategyRecord.tradingStrategy">
+                          <option value="五日线">五日线</option>
+                          <option value="海龟策略">海龟策略</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label></label>
+                        <button @click="executeNewStrategy" class="btn btn-primary" style="margin-top: 10px">执行</button>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title ng-scope">策略状态</h3>
+                </div>
+                <div class="panel-body">
+                  <table class="table table-striped" contenteditable="false" spellcheck="false">
+                    <thead>
+                    <tr>
+                      <th>交易商品</th>
+                      <th>交易策略</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="record in reverseSum">
+                      <td>{{ record.tradingGoods }}</td>
+                      <td>{{ record.tradingStrategy }}</td>
+                      <td :class="'text-left'">
+                        <button @click="deleteStrategy($index)" class="btn btn-warning btn-sm">中止</button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+<script th:src="@{/webjars/vue/2.6.11/vue.min.js}"></script>
+<script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      newStrategyRecord: {
+        exchangeType: 'Huobi',
+        tradingGoods: 'BTC',
+        tradingStrategy: '五日线'
+      },
+      strategyExecutingRecords: [{
+        exchangeType: 'Huobi',
+        tradingGoods: 'BTC',
+        tradingStrategy: '海龟策略'
+      }, {
+        exchangeType: 'Huobi',
+        tradingGoods: 'BTC',
+        tradingStrategy: '五日线'
+      }]
+    },
+    methods: {
+      executeNewStrategy: function () {
+        this.strategyExecutingRecords.push(this.newStrategyRecord);
+        // 添加完newPerson对象后，重置newPerson对象
+        this.newStrategyRecord = {exchangeType: 'Huobi', tradingGoods: 'BTC', tradingStrategy: '五日线'}
+      },
+      deleteStrategy: function (index) {
+        // 删一个数组元素
+        this.strategyExecutingRecords.splice(index, 1);
+      }
+    },
+    computed: {
+      reverseSum() {
+        return this.strategyExecutingRecords.reverse();
+      }
+    }
+  })
+</script>
+</html>

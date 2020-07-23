@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
+
+<body>
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title ng-scope">个人资产</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <form id="form" data-parsley-validate="true" onsubmit="return false">
+                      <div class="form-group">
+                        <label text="交易所"></label>
+                        <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                                id="exchangeSelector">
+                          <option id="name"
+                                  th:each="exchange : ${exchangeList}"
+                                  th:value="${exchange}"
+                                  th:text="${exchange}"></option>
+                        </select>
+                      </div>
+                    </form>
+                    <button id="queryContract" type="submit" class="btn btn-sm btn-success">
+                      查询
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="view" id="personalAssetData">
+                      <table class="table table-striped" contenteditable="false" spellcheck="false">
+                        <thead>
+                        <tr>
+                          <th>商品</th>
+                          <th>商品价值</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="asset in personalAssets">
+                          <td>{{asset.assetName}}</td>
+                          <td>{{asset.assetValue}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+<script th:src="@{/webjars/vue/2.6.11/vue.min.js}"></script>
+<script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js}"></script>
+<script type='text/javascript' th:inline="javascript">
+  var vm = new Vue({
+    el: '#personalAssetData',
+    data: {
+      personalAssets: [
+        {
+          assetName: 'BTC',
+          assetValue: '300'
+        },
+        {
+          assetName: 'ZIL',
+          assetValue: '500'
+        }
+      ]
+    }
+  });
+
+
+  var contractInfo = new Vue({
+    el: '#contractRecords',
+    data: {
+      contractRecords: [[${contractRecords}]]
+    }
+  });
+
+  $(function () {
+    toastr.options = {
+      'closeButton': true,
+      'positionClass': 'toast-top-center',
+      'timeOut': '5000',
+    };
+    $("#queryContract").click(function () {
+      let exchangeName = $('#exchangeSelector').val();
+      $.ajax({
+        async: true,
+        type: 'GET',
+        url: '/personalAsset/getPersonalAssetInfo/' + exchangeName,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest);
+          console.log(textStatus);
+          console.log(errorThrown);
+        },
+        success: function (result) {
+          if (result.rspCode === '000000') {
+            var data = result.data;
+            let dataJSON = JSON.parse(JSON.stringify(data["contractRecords"]));
+            for (let key in dataJSON) {
+              contractInfo.contractRecords[key] = dataJSON[key];
+            }
+          }
+        }
+      });
+    });
+  });
+
+</script>
+</html>
+

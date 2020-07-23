@@ -1,0 +1,104 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout :: htmlhead" th:with="title='strategies'"></head>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}">
+<link rel="stylesheet" th:href="@{/vendor/fontawesome/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/vendor/simple-line-icons/css/simple-line-icons.css}">
+<link rel="stylesheet" th:href="@{/media/css/bootstrap.css}" id="bscss">
+<link rel="stylesheet" th:href="@{/media/css/app.css}" id="appcss">
+<link rel="stylesheet" th:href="@{/media/css/theme-i.css}" id="themecss">
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-table/1.15.5/bootstrap-table.min.css}"/>
+
+<body>
+<section>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <form id="form" data-parsley-validate="true" onsubmit="return false">
+                    <div class="form-group">
+                        <label text="交易所"></label>
+                        <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                                id="exchangeSelector">
+                            <option id="name"
+                                    th:each="exchange : ${exchangeList}"
+                                    th:value="${exchange}"
+                                    th:text="${exchange}"></option>
+                        </select>
+                    </div>
+                </form>
+                <button id="queryContract" type="submit" class="btn btn-sm btn-success">
+                    查询
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="view" id="contractRecords">
+                        <table class="table table-striped" contenteditable="false" spellcheck="false">
+                            <thead>
+                            <tr>
+                                <th>交易所</th>
+                                <th>合约总数</th>
+                                <th>最新查询时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(item,key) in contractRecords">
+                                <td>{{key}}</td>
+                                <td>{{item.contractNum}}</td>
+                                <td>{{item.lastUpdatedDate}}</td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+<script th:src="@{/webjars/vue/2.6.11/vue.min.js}"></script>
+<script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
+<script th:src="@{/vendor/jquery/dist/jquery.js}"></script>
+<script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js}"></script>
+<script type='text/javascript' th:inline="javascript">
+  var contractInfo = new Vue({
+    el: '#contractRecords',
+    data: {
+      contractRecords: [[${contractRecords}]]
+    }
+  });
+
+  $(function () {
+    toastr.options = {
+      'closeButton': true,
+      'positionClass': 'toast-top-center',
+      'timeOut': '5000',
+    };
+    $("#queryContract").click(function () {
+      let exchangeName = $('#exchangeSelector').val();
+      $.ajax({
+        async: true,
+        type: 'GET',
+        url: '/contract/getContractInfo/' + exchangeName,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest);
+          console.log(textStatus);
+          console.log(errorThrown);
+        },
+        success: function (result) {
+          if (result.rspCode === '000000') {
+            var data = result.data;
+            let dataJSON = JSON.parse(JSON.stringify(data["contractRecords"]));
+            for (let key in dataJSON) {
+              contractInfo.contractRecords[key] = dataJSON[key];
+            }
+          }
+        }
+      });
+    });
+  });
+
+</script>
+</html>
+

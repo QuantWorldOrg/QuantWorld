@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title ng-binding">概览 </h3>
+          </div>
+          <div class="panel-body text-center">
+            <div class="col-md-2 col-xs-6 well" style="cursor:pointer;margin-right: 10px">
+              <a style="text-decoration:none;"
+                 onclick="locationUrl('/standard/exchange','exchange')">
+                <div class="num-box-val text-center"><i class="icon-home"></i></div>
+                <div class="num-box-label ng-binding text-center">交易所</div>
+              </a>
+            </div>
+            <div class="col-md-2 col-xs-6 well" style="cursor:pointer;margin-right: 10px">
+              <a style="text-decoration:none;"
+                 onclick="locationUrl('/newStrategyTemplate','newStrategyTemplate')">
+                <div class="num-box-val text-center"><i class="icon-handbag"></i></div>
+                <div class="num-box-label ng-binding text-center">策略库</div>
+              </a>
+            </div>
+            <div class="col-md-2 col-xs-6 well" style="cursor:pointer;margin-right: 10px">
+              <a style="text-decoration:none;" onclick="locationUrl('/standard/transactionCenter','transactionCenter')">
+                <div class="num-box-val text-center"><i class="icon-key"></i></div>
+                <div class="num-box-label ng-binding text-center">交易中心</div>
+              </a>
+            </div>
+            <div class="col-md-2 col-xs-6 well" style="cursor:pointer;margin-right: 10px">
+              <a style="text-decoration:none;" onclick="locationUrl('/standard/personalAsset','personalAsset')">
+                <div class="num-box-val text-center"><i class="icon-wallet"></i></div>
+                <div class="num-box-label ng-binding text-center">个人资产</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

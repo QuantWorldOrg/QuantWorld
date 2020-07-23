@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
+<body>
+<section>
+  <div class="content-wrapper">
+    <h3>新建策略</h3>
+    <div class="row">
+      <div class="col-md-3">
+        <form id="form" data-parsley-validate="true" onsubmit="return false">
+          <div class="form-group">
+            <label>交易策略:</label>
+            <select id="selector" class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                    v-model="newStrategyRecord.tradingStrategy">
+              <option id="name"
+                      th:each="key : ${strategyTemplateLabelMap.keySet()}"
+                      th:value="${key}"
+                      th:text="${strategyTemplateLabelMap.get(key)}"></option>
+            </select>
+          </div>
+          <button id="submitNewStrategyTemplate" class="clickable btn btn-block btn-primary mt-lg">提交</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+<script type='text/javascript'>
+  $(function () {
+    toastr.options = {
+      'closeButton': true,
+      'positionClass': 'toast-top-center',
+      'timeOut': '5000',
+    };
+    $("#submitNewStrategyTemplate").click(function () {
+      var ok = $('#form').parsley().isValid({force: true});
+      if (ok) {
+        $.ajax({
+          async: false,
+          type: 'POST',
+          dataType: 'json',
+          data: 'name=' + $("#selector").val(),
+          url: '/strategies/generateBasicStrategyParam',
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(textStatus);
+            console.log(errorThrown);
+          },
+          success: function (response) {
+            if (response.rspCode === '000000') {
+              generateBasicStrategyParam($("#selector").val());
+            } else {
+              toastr.error(response.rspMsg, '操作失败');
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+</html>
