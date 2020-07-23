@@ -1,9 +1,6 @@
 # QuantWorld
-An open source quantitative trading system based on Java
-
-This is a project for quanters in the world. It supports trading stocks, futures, and digital currency online automatically. And this platform will provide many strategies to help quanter to do the trading.
-
-To Be continued
+An open source quantitative trading framework based on Java.
+---To Be continued
 
 # Parts:
 
