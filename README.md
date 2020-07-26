@@ -1,4 +1,6 @@
 # QuantWorld
+![license](https://img.shields.io/badge/License-Apache--2.0-yellowgreen)
+
 An open source quantitative trading framework based on Java.
 ---To Be continued
 
