@@ -15,8 +15,8 @@ An open source quantitative trading framework based on Java.
 
 ## CEP
 - [X] EventDispatcher
-- [ ] SignalCalculator:delay
-- [ ] DataEngine:delay
+- [ ] SignalCalculator
+- [ ] DataEngine
 - [X] DataBase
 
 ## OMS
@@ -31,6 +31,6 @@ An open source quantitative trading framework based on Java.
 - [X] Triangle Strategy
 
 ## BackTestEngine
-- [ ] BackTestEngine:delay
-- [ ] Matcher:delay
-- [ ] Analyzer:delay
+- [ ] BackTestEngine
+- [ ] Matcher
+- [ ] Analyzer
