@@ -30,35 +30,26 @@ public class Exchange extends Entitys implements Serializable {
 
   private String id;
 
-  @Column(nullable = true, length = 50)
+  @Column(nullable = false, length = 50)
   private String userName;
 
-  @Column(nullable = true, length = 50)
-  private String exchangeName;
+  @Column(nullable = false, length = 50)
+  private String type;
 
-  @Column(nullable = true, length = 50)
-  private String digitalCurrencyName;
+  @Column(nullable = false, length = 50)
+  private String exchange;
 
-  @Column(nullable = true, length = 10)
-  private boolean buyOrSell;
+  @Column(nullable = false, length = 100)
+  private String accessKey;
 
-  @Column(nullable = true, length = 10)
-  private char dealStatus; // success, fail, in progress
+  @Column(nullable = false, length = 100)
+  private String secretKey;
 
-  @Column(nullable = true, length = 50)
-  private String strategyName;
-
-  @Column(nullable = true, length = 50)
-  private int currentBalance;
-
-  @Column(nullable = true, length = 50)
-  private int originalBalance;
-
-  @Column(nullable = false, insertable = false, updatable = false)
+  @Column(nullable = false)
   @Temporal(TemporalType.TIMESTAMP)
   private Date createTime;
 
-  @Column(nullable = false, insertable = false, updatable = false)
+  @Column(nullable = false)
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastModifyTime;
 
@@ -81,61 +72,6 @@ public class Exchange extends Entitys implements Serializable {
     this.userName = userName;
   }
 
-  public String getExchangeName() {
-    return exchangeName;
-  }
-
-  public void setExchangeName(String exchangeName) {
-    this.exchangeName = exchangeName;
-  }
-
-  public String getDigitalCurrencyName() {
-    return digitalCurrencyName;
-  }
-
-  public void setDigitalCurrencyName(String digitalCurrencyName) {
-    this.digitalCurrencyName = digitalCurrencyName;
-  }
-
-  public boolean isBuyOrSell() {
-    return buyOrSell;
-  }
-
-  public void setBuyOrSell(boolean buyOrSell) {
-    this.buyOrSell = buyOrSell;
-  }
-
-  public char getDealStatus() {
-    return dealStatus;
-  }
-
-  public void setDealStatus(char dealStatus) {
-    this.dealStatus = dealStatus;
-  }
-
-  public String getStrategyName() {
-    return strategyName;
-  }
-
-  public void setStrategyName(String strategyName) {
-    this.strategyName = strategyName;
-  }
-
-  public int getCurrentBalance() {
-    return currentBalance;
-  }
-
-  public void setCurrentBalance(int currentBalance) {
-    this.currentBalance = currentBalance;
-  }
-
-  public int getOriginalBalance() {
-    return originalBalance;
-  }
-
-  public void setOriginalBalance(int originalBalance) {
-    this.originalBalance = originalBalance;
-  }
 
   public Date getCreateTime() {
     return createTime;
@@ -151,5 +87,51 @@ public class Exchange extends Entitys implements Serializable {
 
   public void setLastModifyTime(Date lastModifyTime) {
     this.lastModifyTime = lastModifyTime;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public String getExchange() {
+    return exchange;
+  }
+
+  public void setExchange(String exchange) {
+    this.exchange = exchange;
+  }
+
+  public String getAccessKey() {
+    return accessKey;
+  }
+
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
+  }
+
+  public String getSecretKey() {
+    return secretKey;
+  }
+
+  public void setSecretKey(String secretKey) {
+    this.secretKey = secretKey;
+  }
+
+  @Override
+  public String toString() {
+    return "Exchange{" +
+        "id='" + id + '\'' +
+        ", userName='" + userName + '\'' +
+        ", type='" + type + '\'' +
+        ", exchange='" + exchange + '\'' +
+        ", accessKey='" + accessKey + '\'' +
+        ", secretKey='" + secretKey + '\'' +
+        ", createTime=" + createTime +
+        ", lastModifyTime=" + lastModifyTime +
+        '}';
   }
 }

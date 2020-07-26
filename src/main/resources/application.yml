@@ -1,0 +1,88 @@
+debug: true
+file:
+  backgroundpictures:
+    url: file/backgroundpictures/
+  profilepictures:
+    url: file/profilepictures/
+logging:
+  file: /home/shawn/Workspace/quant/log/quant.log
+  level:
+    com:
+      shawn:
+        quant: INFO
+    org:
+      hibernate: INFO
+      springframework:
+        web: INFO
+mail:
+  fromMail:
+    addr: your email address
+quant:
+  base:
+    path: http://localhost:9999/
+
+server:
+  port: 9999
+  session-timeout: 60
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+spring:
+  data:
+    mongodb:
+      database: quant
+      host: localhost
+      port: 27017
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://127.0.0.1/quant?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hbm2ddl:
+          auto: update
+  mail:
+    default-encoding: utf-8
+    from: your email address
+    host: smtp.yeah.net
+    nickname: 宽界
+    password: UNIKXSBCOGWCDACJ
+    properties:
+      mail:
+        display:
+          sendmail: QuantWorld
+          sendname: Spring Boot Guide Email
+        smtp:
+          auth: true
+          port: 994
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
+    protocol: smtp
+    username: your email address
+  redis:
+    database: 0
+    host: localhost
+    lettuce:
+      pool:
+        max-idle: 8
+        max-wait: 2000
+        min-idle: 0
+    password: ''
+    port: 6379
+    timeout: 3000
+static:
+  url: /AboutMe/Learning/Quant/quant/src/main/resources/static/

@@ -21,6 +21,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.quantworld.app.comm.aop.LoggerManage;
 import com.quantworld.app.data.ContractData;
 import com.quantworld.app.data.constants.ExchangeEnum;
+import com.quantworld.app.domain.Exchange;
+import com.quantworld.app.repository.ExchangeRepository;
 import com.quantworld.app.service.StrategyBasicParamGenerator;
 import com.quantworld.app.trader.domain.StrategyEntity;
 import com.quantworld.app.trader.engines.AdminEngine;
@@ -65,9 +67,16 @@ public class HomeController extends BaseController {
   @Autowired
   OrderManagementSystem orderManagementSystem;
 
+  @Autowired
+  private ExchangeRepository exchangeRepository;
+
   @RequestMapping(value = "/standard/exchange")
   @LoggerManage(description = "文章列表standard")
-  public String exchange() {
+  public String exchange(Model model) {
+    List<Exchange> exchangeList = exchangeRepository.findAll();
+    if (exchangeList.size() > 0) {
+      model.addAttribute("exchangeList", exchangeList);
+    }
     return "/standard/exchange";
   }
 

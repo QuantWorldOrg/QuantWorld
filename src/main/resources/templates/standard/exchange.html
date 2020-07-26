@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
 <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/font-awesome.min.css}"/>
@@ -9,60 +9,99 @@
 <body>
 <section>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title ng-scope">交易所选择</h3>
+    <div class="row" id="exchangePage">
+      <form id="form" data-parsley-validate="true" onsubmit="return false">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="panel panel-default col-md-6">
+              <div class="panel-heading">
+                <h3 class="panel-title ng-scope">交易所选择</h3>
+              </div>
+              <div class="panel-body">
+                <form role="form">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                              v-model="type">
+                        <option value="DIGICCY" selected="selected">数字货币</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                              v-model="exchange">
+                        <option value="HUOBI" selected="selected">火币</option>
+                        <option value="BINANCE">币安</option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <div class="panel-body">
-            <form role="form">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse" style="">
-                    <option value="0" >数字货币</option>
-                  </select>
+          <div class="row">
+            <div class="panel panel-default col-md-6">
+              <div class="panel-heading">
+                <h3 class="panel-title ng-scope">配置参数</h3>
+              </div>
+              <div class="panel-body">
+                <form role="form">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">
+                      Access Key
+                    </label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" v-model="accessKey"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">
+                      Secret Key
+                    </label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" v-model="secretKey"/>
+                  </div>
+                </form>
+                <div class="col-md-12">
+                  <button type="submit" v-on:click="add" class="btn btn-block btn-primary mt-lg">
+                    添加交易所
+                  </button>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse">
-                    <option value="0" >火币</option>
-                    <option value="1" >币安</option>
-                  </select>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title ng-scope">现存交易所信息</h3>
+            </div>
+            <div class="panel-body" th:if="${exchangeList.size() > 0}">
+              <div class="col-md-3"
+                   th:each="exchange : ${exchangeList}">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title ng-scope" th:name="${exchange.getType()}"
+                        th:text="${exchange.getType()}"></h3>
+                  </div>
+                  <div class="panel-body">
+                    <form>
+                      <label>交易所</label>
+                      <input type="text" class="form-control" th:name="*{exchange.getExchange()}"
+                             th:value="*{exchange.getExchange()}" readonly="readonly"/>
+                      <label>Access Key</label>
+                      <input type="text" class="form-control" th:name="*{exchange.getAccessKey()}"
+                             th:value="*{exchange.getAccessKey()}"/>
+                      <label>Secret Key</label>
+                      <input type="password" class="form-control" th:name="*{exchange.getSecretKey()}"
+                             th:value="*{exchange.getSecretKey()}"/>
+                    </form>
+                    <button type="submit" v-on:click="add"  class="btn btn-block mt-lg btn btn-sm btn-danger">
+                      删除
+                    </button>
+                  </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title ng-scope">配置参数</h3>
-          </div>
-          <div class="panel-body">
-            <form role="form">
-              <div class="form-group">
-                <label for="exampleInputEmail1">
-                  Access Key
-                </label>
-                <input type="text" class="form-control" id="exampleInputEmail1"/>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">
-                  Secret Key
-                </label>
-                <input type="password" class="form-control" id="exampleInputPassword1"/>
-              </div>
-            </form>
-            <button type="submit" class="btn btn-primary">
-              添加交易所
-            </button>
-            <button type="button" class="btn btn-sm btn-warning">
-              取消
-            </button>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </section>
@@ -72,6 +111,60 @@
 <script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
 <script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
 <script type='text/javascript' th:inline="javascript">
+  Vue.http.options.emulateJSON = true;
+  var registPage = new Vue({
+    el: '#exchangePage',
+    data: {
+      'type': '',
+      'exchange': '',
+      'accessKey': '',
+      'secretKey': ''
+    },
+    methods: {
+      add: function (event) {
+        var ok = $('#form').parsley().isValid({force: true});
+        if (!ok) {
+          return;
+        }
+        var datas = {
+          type: this.type,
+          exchange: this.exchange,
+          accessKey: this.accessKey,
+          secretKey: this.secretKey
+        };
+        this.$http.post('/exchange/add', JSON.stringify(datas)).then(function (response) {
+          if (response.data.rspCode == '000000') {
+            toastr.success('交易所信息添加成功!', '操作成功');
+          } else {
+            toastr.error(response.data.data, '操作成功');
+          }
+        }, function (response) {
+          console.log('error');
+        })
+      },
+      delete: function (event) {
+        var ok = $('#form').parsley().isValid({force: true});
+        if (!ok) {
+          return;
+        }
+        var datas = {
+          type: this.type,
+          exchange: this.exchange,
+          accessKey: this.accessKey,
+          secretKey: this.secretKey
+        };
+        this.$http.post('/exchange/delete', datas).then(function (response) {
+          if (response.data.rspCode == '000000') {
+            toastr.success('交易所信息添加成功!', '操作成功');
+          } else {
+            toastr.error('交易所信息添加失败!', '操作成功');
+          }
+        }, function (response) {
+          console.log('error');
+        })
+      }
+    }
+  });
 </script>
 </html>
 
