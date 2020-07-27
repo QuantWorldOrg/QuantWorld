@@ -22,7 +22,7 @@
 
 # 宽界架构
 
-![](https://www.itnote.tech/images/pasted-58.png)
+![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-58.png)
 技术栈：Vue/Bootstrap/jQuery/Thymeleaf/Spring Data Jpa/Spring Boot Mail/WebJars/Mysql/MongoDB/Tomcat/WebSocket
 
 # 组件:
@@ -62,9 +62,9 @@
 # 系统展示
 
 - 主页
-![](https://www.itnote.tech/images/pasted-61.png)
+![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-61.png)
 - 交易所展示
-![](https://www.itnote.tech/images/pasted-59.png)
+![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-59.png)
 - 策略库
-![](https://www.itnote.tech/images/pasted-62.png)
-![](https://www.itnote.tech/images/pasted-63.png)
+![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-62.png)
+![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-63.png)
