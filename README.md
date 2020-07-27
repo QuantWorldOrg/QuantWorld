@@ -68,3 +68,5 @@
 - 策略库
 ![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-62.png)
 ![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-63.png)
+- 个人资产
+![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-64.png)
