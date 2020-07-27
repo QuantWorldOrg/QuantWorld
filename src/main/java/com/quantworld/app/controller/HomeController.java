@@ -74,9 +74,7 @@ public class HomeController extends BaseController {
   @LoggerManage(description = "文章列表standard")
   public String exchange(Model model) {
     List<Exchange> exchangeList = exchangeRepository.findAll();
-    if (exchangeList.size() > 0) {
-      model.addAttribute("exchangeList", exchangeList);
-    }
+    model.addAttribute("exchangeList", exchangeList);
     return "/standard/exchange";
   }
 
