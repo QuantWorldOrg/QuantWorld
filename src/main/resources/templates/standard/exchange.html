@@ -134,6 +134,7 @@
         };
         this.$http.post('/exchange/add', JSON.stringify(datas)).then(function (response) {
           if (response.data.rspCode == '000000') {
+            locationUrl('/standard/exchange','');
             toastr.success('交易所信息添加成功!', '操作成功');
           } else {
             toastr.error(response.data.data, '操作成功');
@@ -155,6 +156,7 @@
         };
         this.$http.post('/exchange/delete', datas).then(function (response) {
           if (response.data.rspCode == '000000') {
+            locationUrl('/standard/exchange','');
             toastr.success('交易所信息添加成功!', '操作成功');
           } else {
             toastr.error('交易所信息添加失败!', '操作成功');

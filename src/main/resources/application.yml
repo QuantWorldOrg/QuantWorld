@@ -39,9 +39,9 @@ spring:
       port: 27017
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: root
-    url: jdbc:mysql://127.0.0.1/quant?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
+    password: rootroot
+    url: jdbc:mysql://127.0.0.1/quant?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
 
   jpa:
     hibernate:
@@ -55,6 +55,7 @@ spring:
   mail:
     default-encoding: utf-8
     from: your email address
+    username: your email address
     host: smtp.yeah.net
     nickname: 宽界
     password: UNIKXSBCOGWCDACJ
@@ -72,7 +73,6 @@ spring:
             enable: true
             required: true
     protocol: smtp
-    username: your email address
   redis:
     database: 0
     host: localhost
