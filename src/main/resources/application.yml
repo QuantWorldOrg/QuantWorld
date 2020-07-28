@@ -5,7 +5,6 @@ file:
   profilepictures:
     url: file/profilepictures/
 logging:
-  file: /home/shawn/Workspace/quant/log/quant.log
   level:
     com:
       shawn:
@@ -14,6 +13,8 @@ logging:
       hibernate: INFO
       springframework:
         web: INFO
+  file:
+    name: /home/shawn/Workspace/quant/log/quant.log
 mail:
   fromMail:
     addr: your email address
@@ -40,7 +41,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: rootroot
+    password: root
     url: jdbc:mysql://127.0.0.1/quant?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
 
   jpa:

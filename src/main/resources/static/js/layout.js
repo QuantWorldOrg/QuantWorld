@@ -383,7 +383,7 @@ function generateStrategy(name) {
           $("#updateFavoritesBtn").attr("aria-hidden", "true");
           $("#updateFavoritesBtn").attr("data-dismiss", "modal");
         } else {
-          toastr.error('策略创建失败，请检查参数是否正确！');
+          toastr.error(response.data);
           $("#updateErrorMsg").text(response.rspMsg);
           $("#updateErrorMsg").show();
         }

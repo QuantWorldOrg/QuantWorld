@@ -91,7 +91,7 @@ public class StrategyController extends BaseController {
           adminEngine.connect(new ConcurrentHashMap<>(), gateway.getGatewayName());
           return new ResponseData(ExceptionMsg.SUCCESS, strategyEntity.getUuid());
         } else {
-          return new ResponseData(ExceptionMsg.FAILED);
+          return new ResponseData(ExceptionMsg.FAILED, "找不到交易所接口，请选择有效的交易所！");
         }
       } else {
         strategyEntityDAO.save(strategyEntity);
@@ -103,8 +103,9 @@ public class StrategyController extends BaseController {
         return new ResponseData(ExceptionMsg.SUCCESS, strategyEntity.getUuid());
       }
     } catch (Exception e) {
-      logger.error("策略保存失败！", e);
-      return new ResponseData(ExceptionMsg.FAILED);
+      String message = "策略保存失败！";
+      logger.error(message, e);
+      return new ResponseData(ExceptionMsg.FAILED, message);
     }
   }
 

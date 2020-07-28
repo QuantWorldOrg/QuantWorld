@@ -18,6 +18,9 @@ package com.quantworld.app.data.constants;
 
 import com.quantworld.app.trader.oms.strategies.teststrategy.TestParam;
 import com.quantworld.app.trader.oms.strategies.teststrategy.TestStrategy;
+import com.quantworld.app.trader.oms.strategies.triangle.DemoStrategy;
+import com.quantworld.app.trader.oms.strategies.triangle.DemoBasicGeneratorParam;
+import com.quantworld.app.trader.oms.strategies.triangle.DemoStrategyParam;
 
 /**
  * Here are the strategy template params, the enum element name should align with param property file name.
@@ -32,6 +35,12 @@ import com.quantworld.app.trader.oms.strategies.teststrategy.TestStrategy;
  * @Description:
  */
 public enum StrategyTemplateEnum {
+  DEMOSTRATEGY(
+      DemoStrategy.class.getName(),
+      DemoStrategyParam.class.getName(),
+      DemoBasicGeneratorParam.class.getName(),
+      "演示策略"
+  ),
 
   TESTSTRATEGY(
       TestStrategy.class.getName(),
