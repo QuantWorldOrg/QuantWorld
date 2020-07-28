@@ -18,7 +18,6 @@ package com.quantworld.app.trader.cep;
 
 
 import com.quantworld.app.data.constants.EventTypeEnum;
-import net.openhft.affinity.AffinityLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,18 +64,13 @@ public class EventDispatcher {
     eventQueue = new ConcurrentLinkedQueue<>();
     events = new ConcurrentHashMap<>();
     timer = new Thread(() -> {
-      AffinityLock al = AffinityLock.acquireLock();
-      try {
-        while (isActive) {
-          try {
-            TimeUnit.MILLISECONDS.sleep(interval);
-            publishTimer();
-          } catch (Exception e) {
-            logger.error("Failed to generate timer event", e);
-          }
+      while (isActive) {
+        try {
+          TimeUnit.MILLISECONDS.sleep(interval);
+          publishTimer();
+        } catch (Exception e) {
+          logger.error("Failed to generate timer event", e);
         }
-      } finally {
-        al.release();
       }
     });
     logger.warn("The timer thread id is {}", timer.getId());
@@ -140,6 +134,7 @@ public class EventDispatcher {
 
   /**
    * Publish the events except the timer event
+   *
    * @param event
    */
   private void publish(Event event) {

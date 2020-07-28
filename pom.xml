@@ -36,7 +36,6 @@
     <org.webjars.vue.version>2.6.11</org.webjars.vue.version>
     <org.webjars.webjars-locator.version>0.33</org.webjars.webjars-locator.version>
     <org.testng.version>7.1.0</org.testng.version>
-    <net.openhft.affinity.version>3.2.3</net.openhft.affinity.version>
   </properties>
 
   <dependencies>
@@ -219,13 +218,6 @@
       <artifactId>testng</artifactId>
       <version>${org.testng.version}</version>
       <scope>test</scope>
-    </dependency>
-
-    <!-- Thread Affinity -->
-    <dependency>
-      <groupId>net.openhft</groupId>
-      <artifactId>affinity</artifactId>
-      <version>${net.openhft.affinity.version}</version>
     </dependency>
   </dependencies>
 
