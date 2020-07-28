@@ -59,7 +59,23 @@ public class ExchangeController extends BaseController {
       return new ResponseData(ExceptionMsg.FAILED, "交易类型不可为空！");
     }
     Exchange save = exchangeRepository.save(exchange);
-    logger.info("Exchange save: {}", save.toString());
+    return new ResponseData(ExceptionMsg.SUCCESS);
+  }
+
+  @RequestMapping(value = "/delete", method = RequestMethod.POST)
+  public Response deleteExchangeInfo(@RequestBody String data) throws ClassNotFoundException {
+
+    Exchange exchange = (Exchange) JSON.toJavaObject(JSON.parseObject(data), Class.forName(Exchange.class.getName()));
+    logger.info(exchange.toString());
+    exchange.setUserName(getUserName());
+    exchange.setCreateTime(new Timestamp(System.currentTimeMillis()));
+    exchange.setLastModifyTime(new Timestamp(System.currentTimeMillis()));
+    if (StringUtils.isBlank(exchange.getAccessKey())) {
+      return new ResponseData(ExceptionMsg.FAILED, "Access Key不可为空！");
+    } else if (StringUtils.isBlank(exchange.getExchange())) {
+      return new ResponseData(ExceptionMsg.FAILED, "交易所名不可为空！");
+    }
+    exchangeRepository.delete(exchange);
     return new ResponseData(ExceptionMsg.SUCCESS);
   }
 }
