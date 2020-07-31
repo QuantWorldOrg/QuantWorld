@@ -35,6 +35,7 @@
     <org.webjars.vue-resource.version>0.7.0</org.webjars.vue-resource.version>
     <org.webjars.vue.version>2.6.11</org.webjars.vue.version>
     <org.webjars.webjars-locator.version>0.33</org.webjars.webjars-locator.version>
+    <org.webjars.bootstrap-switch.version>4.0.0-alpha.1</org.webjars.bootstrap-switch.version>
     <org.testng.version>7.1.0</org.testng.version>
   </properties>
 
@@ -201,6 +202,11 @@
       <groupId>org.webjars</groupId>
       <artifactId>webjars-locator</artifactId>
       <version>${org.webjars.webjars-locator.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>bootstrap-switch</artifactId>
+      <version>${org.webjars.bootstrap-switch.version}</version>
     </dependency>
     <!--   MongoDB     -->
     <dependency>

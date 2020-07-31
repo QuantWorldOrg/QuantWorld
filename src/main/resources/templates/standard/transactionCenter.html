@@ -3,9 +3,13 @@
 <head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
 <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.6/dist/css/bootstrap.min.css}">-->
 <link rel="stylesheet" th:href="@{/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css}">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap-switch/4.0.0-alpha.1/dist/css/bootstrap-switch.min.css}">
 <body>
 <section>
   <div class="container-fluid">
+    <div class="row">
+      <input type="checkbox" name="test">
+    </div>
     <div class="row">
       <div class="col-md-12">
         <div class="panel panel-default">
@@ -15,17 +19,6 @@
           <div class="panel-body">
             <div class="form-group">
               <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-2">
-                    <input type='text' class="form-control" placeholder="开始时间" id="startDate" style="margin-top: 10px"/>
-                  </div>
-                  <div class="col-md-2">
-                    <input type='text' class="form-control" placeholder="结束时间" id="endDate" style="margin-top: 10px"/>
-                  </div>
-                  <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary" style="margin-top: 10px">搜索</button>
-                  </div>
-                </div>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="view" id="transactionData">
@@ -76,10 +69,12 @@
 <!--<script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>-->
 <!--<script th:src="@{/vendor/jquery/jquery.min.js}"></script>-->
 <script th:src="@{/webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/bootstrap-switch/4.0.0-alpha.1/dist/js/bootstrap-switch.min.js}"></script>
 <script th:src="@{/webjars/momentjs/2.10.3/moment.js}"></script>
 <script th:src="@{/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.js}"
         charset="UTF-8"></script>
 <script type='text/javascript' th:inline="javascript">
+  $("[name='test']").bootstrapSwitch();
   var vm = new Vue({
     el: '#transactionData',
     data: {
