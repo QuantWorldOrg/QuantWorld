@@ -203,11 +203,6 @@
       <artifactId>webjars-locator</artifactId>
       <version>${org.webjars.webjars-locator.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.webjars.bower</groupId>
-      <artifactId>bootstrap-switch</artifactId>
-      <version>${org.webjars.bootstrap-switch.version}</version>
-    </dependency>
     <!--   MongoDB     -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

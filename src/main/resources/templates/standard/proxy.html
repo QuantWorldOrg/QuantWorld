@@ -1,0 +1,98 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
+<!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.6/dist/css/bootstrap.min.css}">-->
+<link rel="stylesheet" th:href="@{/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css}">
+<body>
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title ng-scope">代理服务器</h3>
+          </div>
+          <div class="panel-body">
+            <form id="form"></form>
+            <div class="form-group">
+              <label for="protocol">代理协议</label>
+              <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                      id="protocol">
+                <option value=""> -- 请选择 --</option>
+                <option value="HTTP">HTTP</option>
+                <option value="HTTPS">HTTPS</option>
+                <option value="SOCKS5">SOCKS5</option>
+              </select>
+              <label for="server">代理服务器</label><input id="server" type="text" class="form-control" th:value="${proxy.getServer()}"/>
+              <label for="port">代理端口</label><input id="port" type="text" class="form-control"  th:value="${proxy.getPort()}"/>
+            </div>
+            <button id="connectProxy"
+                    type="submit"
+                    class="btn btn-sm btn-success"
+                    th:if="${proxy.isStatus() eq false}">
+              连接代理
+            </button>
+            <button id="disconnectPoxy"
+                    type="submit"
+                    class="btn btn-sm btn-warning"
+                    th:if="${proxy.isStatus() eq true}">
+              断开代理
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+<script th:src="@{/webjars/vue/2.6.11/vue.min.js}"></script>
+<script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/momentjs/2.10.3/moment.js}"></script>
+<script th:src="@{/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.js}"
+        charset="UTF-8"></script>
+<script type='text/javascript' th:inline="javascript">
+  $(function () {
+    toastr.options = {
+      'closeButton': true,
+      'positionClass': 'toast-top-center',
+      'timeOut': '5000',
+    };
+    $("#connectProxy").click(function () {
+      var ok = $('#form').parsley().isValid({force: true});
+      var data = {
+        'id': [[${id}]],
+        'server': $("#server").val(),
+        'protocol': $("#protocol").val(),
+        'port': $("#port").val(),
+        'status': true,
+      };
+
+      if (ok) {
+        $.ajax({
+          async: false,
+          type: 'POST',
+          dataType: 'json',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          url: '/proxy/connect',
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(textStatus);
+            console.log(errorThrown);
+          },
+          success: function (response) {
+            if (response.rspCode === '000000') {
+              locationUrl('/standard/proxy','');
+              toastr.success('交易所信息添加成功!', '操作成功');
+            } else {
+              toastr.error(response.rspMsg, '操作失败');
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+</html>
+

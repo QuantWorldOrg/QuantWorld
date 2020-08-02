@@ -22,13 +22,16 @@ import com.quantworld.app.comm.aop.LoggerManage;
 import com.quantworld.app.data.ContractData;
 import com.quantworld.app.data.constants.ExchangeEnum;
 import com.quantworld.app.domain.Exchange;
+import com.quantworld.app.domain.ProxyConfiguration;
 import com.quantworld.app.repository.ExchangeRepository;
+import com.quantworld.app.repository.ProxyRepository;
 import com.quantworld.app.service.StrategyBasicParamGenerator;
 import com.quantworld.app.trader.domain.StrategyEntity;
 import com.quantworld.app.trader.engines.AdminEngine;
 import com.quantworld.app.trader.oms.OrderManagementSystem;
 import com.quantworld.app.trader.repository.StrategyEntityDAO;
 import com.quantworld.app.utils.QuantStringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,6 +73,9 @@ public class HomeController extends BaseController {
   @Autowired
   private ExchangeRepository exchangeRepository;
 
+  @Autowired
+  private ProxyRepository proxyRepository;
+
   @RequestMapping(value = "/standard/exchange")
   @LoggerManage(description = "文章列表standard")
   public String exchange(Model model) {
@@ -78,10 +84,14 @@ public class HomeController extends BaseController {
     return "/standard/exchange";
   }
 
-  @RequestMapping(value = "/standard/transactionCenter")
+  @RequestMapping(value = "/standard/proxy")
   @LoggerManage(description = "文章列表standard")
-  public String transactionCenter() {
-    return "/standard/transactionCenter";
+  public String proxy(Model model) {
+    List<ProxyConfiguration> proxyConfigurations = proxyRepository.findAll();
+    model.addAttribute("proxy", proxyConfigurations.isEmpty() ? new ProxyConfiguration() : proxyConfigurations.get(0));
+    model.addAttribute("id", proxyConfigurations.isEmpty() ? StringUtils.EMPTY : proxyConfigurations.get(0).getId());
+    model.addAttribute("proxyStatus", proxyConfigurations.isEmpty() ? false : proxyConfigurations.get(0).isStatus());
+    return "/standard/proxy";
   }
 
 
