@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 
 <head th:include="layout :: htmlhead" th:with="title='favorites'"></head>
 <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.6/dist/css/bootstrap.min.css}">-->
@@ -16,15 +16,17 @@
             <form id="form"></form>
             <div class="form-group">
               <label for="protocol">代理协议</label>
-              <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse" th:value="ahahahah"
-                      id="protocol">
-                <option value=""> -- 请选择 --</option>
-                <option value="HTTP">HTTP</option>
-                <option value="HTTPS">HTTPS</option>
-                <option value="SOCKS5">SOCKS5</option>
+              <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                      id="protocol" th:value="${proxy.getProtocol()}">
+                <option value=""> -- 请选择 -- </option>
+                <option th:selected="${proxy.getProtocol() == 'HTTP'}" value="HTTP"> HTTP</option>
+                <option th:selected="${proxy.getProtocol() == 'HTTPS'}" value="HTTPS"> HTTPS</option>
+                <option th:selected="${proxy.getProtocol() == 'SOCKS'}" value="SOCKS"> SOCKS</option>
               </select>
-              <label for="server">代理服务器</label><input id="server" type="text" class="form-control" th:value="${proxy.getServer()}"/>
-              <label for="port">代理端口</label><input id="port" type="text" class="form-control"  th:value="${proxy.getPort()}"/>
+              <label for="server">代理服务器</label><input id="server" type="text" class="form-control"
+                                                      th:value="${proxy.getServer()}"/>
+              <label for="port">代理端口</label><input id="port" type="text" class="form-control"
+                                                   th:value="${proxy.getPort()}"/>
             </div>
             <button id="connectProxy"
                     type="submit"
@@ -83,7 +85,7 @@
           },
           success: function (response) {
             if (response.rspCode === '000000') {
-              locationUrl('/standard/proxy','');
+              locationUrl('/standard/proxy', '');
               toastr.success('交易所信息添加成功!', '操作成功');
             } else {
               toastr.error(response.rspMsg, '操作失败');
@@ -118,7 +120,7 @@
           },
           success: function (response) {
             if (response.rspCode === '000000') {
-              locationUrl('/standard/proxy','');
+              locationUrl('/standard/proxy', '');
               toastr.success('交易所信息添加成功!', '操作成功');
             } else {
               toastr.error(response.rspMsg, '操作失败');
