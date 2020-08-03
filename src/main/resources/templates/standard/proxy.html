@@ -16,7 +16,7 @@
             <form id="form"></form>
             <div class="form-group">
               <label for="protocol">代理协议</label>
-              <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+              <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse" th:value="ahahahah"
                       id="protocol">
                 <option value=""> -- 请选择 --</option>
                 <option value="HTTP">HTTP</option>
@@ -32,7 +32,7 @@
                     th:if="${proxy.isStatus() eq false}">
               连接代理
             </button>
-            <button id="disconnectPoxy"
+            <button id="disconnectProxy"
                     type="submit"
                     class="btn btn-sm btn-warning"
                     th:if="${proxy.isStatus() eq true}">
@@ -76,6 +76,41 @@
           data: JSON.stringify(data),
           contentType: 'application/json',
           url: '/proxy/connect',
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(textStatus);
+            console.log(errorThrown);
+          },
+          success: function (response) {
+            if (response.rspCode === '000000') {
+              locationUrl('/standard/proxy','');
+              toastr.success('交易所信息添加成功!', '操作成功');
+            } else {
+              toastr.error(response.rspMsg, '操作失败');
+            }
+          }
+        });
+      }
+    });
+
+    $("#disconnectProxy").click(function () {
+      var ok = $('#form').parsley().isValid({force: true});
+      var data = {
+        'id': [[${id}]],
+        'server': $("#server").val(),
+        'protocol': $("#protocol").val(),
+        'port': $("#port").val(),
+        'status': true,
+      };
+
+      if (ok) {
+        $.ajax({
+          async: false,
+          type: 'POST',
+          dataType: 'json',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          url: '/proxy/disconnect',
           error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log(XMLHttpRequest);
             console.log(textStatus);

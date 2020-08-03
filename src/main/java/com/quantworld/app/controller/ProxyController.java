@@ -51,4 +51,13 @@ public class ProxyController extends BaseController {
     proxyRepository.save(proxyConfiguration);
     return new ResponseData(ExceptionMsg.SUCCESS);
   }
+
+  @RequestMapping(value = "/disconnect", method = RequestMethod.POST)
+  public Response disconnectProxy(@RequestBody String data) throws ClassNotFoundException {
+
+    ProxyConfiguration proxyConfiguration = (ProxyConfiguration) JSON.toJavaObject(JSON.parseObject(data), Class.forName(ProxyConfiguration.class.getName()));
+    proxyConfiguration.setStatus(false);
+    proxyRepository.save(proxyConfiguration);
+    return new ResponseData(ExceptionMsg.SUCCESS);
+  }
 }
