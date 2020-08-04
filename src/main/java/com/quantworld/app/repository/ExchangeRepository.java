@@ -5,4 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ExchangeRepository extends JpaRepository<Exchange, String> {
 
+  String NAME = "exchangeRepository";
+
+  Exchange findByExchange(String exchange);
 }

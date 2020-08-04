@@ -27,6 +27,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ProxyRepository extends JpaRepository<ProxyConfiguration, String> {
+
+  String NAME = "proxyRepository";
+
   @Override
   List<ProxyConfiguration> findAll();
 

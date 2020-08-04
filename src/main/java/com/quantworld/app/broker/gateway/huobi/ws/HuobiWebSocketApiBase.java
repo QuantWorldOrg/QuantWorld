@@ -55,6 +55,10 @@ public class HuobiWebSocketApiBase extends WebSocketClient {
 
   protected EventDispatcher eventDispatcher;
 
+  protected String accessKey;
+
+  protected String secretKey;
+
   //TODO extract the enum to constant to simplify the code
   protected enum SocketEnum {
 

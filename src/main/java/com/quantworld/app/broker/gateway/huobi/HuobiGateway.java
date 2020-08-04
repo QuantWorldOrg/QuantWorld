@@ -38,8 +38,6 @@ public class HuobiGateway extends BaseGateway {
 
   private HuobiWebSocketDataApi huobiWebSocketDataApi;
 
-//  private HuobiWebSocketTradeApi huobiWebSocketTradeApi;
-
   private HuobiWebSocketTradeApiV21 huobiWebSocketTradeApiV21;
 
   private HuobiRestApi huobiRestApi;
@@ -49,7 +47,6 @@ public class HuobiGateway extends BaseGateway {
   public HuobiGateway() {
     super(GATEWAY_NAME);
     try {
-//      this.huobiWebSocketTradeApi = new HuobiWebSocketTradeApi(this);
       this.huobiWebSocketDataApi = new HuobiWebSocketDataApi(this);
       this.huobiWebSocketTradeApiV21 = new HuobiWebSocketTradeApiV21(this);
       this.huobiRestApi = new HuobiRestApi(this);
@@ -68,29 +65,19 @@ public class HuobiGateway extends BaseGateway {
       huobiWebSocketDataApi.connect();
     }
 
-//    if (!huobiWebSocketTradeApi.isOpen()) {
-//      huobiWebSocketTradeApi.connect();
-//    }
-
     if (!huobiWebSocketTradeApiV21.isOpen()) {
       huobiWebSocketTradeApiV21.connect();
     }
-
-//    if (huobiWebSocketDataApi.isOpen() && huobiWebSocketTradeApi.isOpen()) {
-//      queryContract();
-//    }
   }
 
   @Override
   public void subscribe(SubscribeRequest request) {
-//    huobiWebSocketTradeApi.subscribe(request);
     huobiWebSocketDataApi.subscribe(request);
     huobiWebSocketTradeApiV21.subscribe(request);
   }
 
   @Override
   public void unSubscribe(SubscribeRequest request) {
-//    huobiWebSocketTradeApi.unSubscribe(request);
     huobiWebSocketDataApi.unSubscribe(request);
     huobiWebSocketTradeApiV21.unSubscribe(request);
   }

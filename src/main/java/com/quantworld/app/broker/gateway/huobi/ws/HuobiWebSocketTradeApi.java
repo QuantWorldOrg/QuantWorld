@@ -17,6 +17,7 @@
 package com.quantworld.app.broker.gateway.huobi.ws;
 
 import com.alibaba.fastjson.JSONObject;
+import com.quantworld.app.QWContext;
 import com.quantworld.app.broker.gateway.BaseGateway;
 import com.quantworld.app.broker.gateway.LocalOrderManager;
 import com.quantworld.app.broker.gateway.QuantWebSocketClient;
@@ -31,6 +32,8 @@ import com.quantworld.app.data.SubscribeRequest;
 import com.quantworld.app.data.TradeData;
 import com.quantworld.app.data.constants.ExchangeEnum;
 import com.quantworld.app.data.constants.StatusEnum;
+import com.quantworld.app.domain.Exchange;
+import com.quantworld.app.repository.ExchangeRepository;
 import com.quantworld.app.utils.DateUtils;
 import com.quantworld.app.broker.gateway.huobi.HuobiContants;
 import org.java_websocket.drafts.Draft;
@@ -63,7 +66,6 @@ public class HuobiWebSocketTradeApi extends HuobiWebSocketApiBase {
 
   private Set<String> subTopic = new HashSet<>();
 
-
   public HuobiWebSocketTradeApi(BaseGateway gateway) throws URISyntaxException {
     super(tradeURI, gateway);
     if (gateway.getOrderManager() == null) {
@@ -75,6 +77,11 @@ public class HuobiWebSocketTradeApi extends HuobiWebSocketApiBase {
       });
     }
     this.orderManager = gateway.getOrderManager();
+
+    ExchangeRepository exchangeRepository = (ExchangeRepository) QWContext.getBean(ExchangeRepository.NAME);
+    Exchange huobi = exchangeRepository.findByExchange("HUOBI");
+    accessKey = huobi.getAccessKey();
+    secretKey = huobi.getSecretKey();
   }
 
   public HuobiWebSocketTradeApi(URI serverUri, BaseGateway gateway) {
@@ -118,7 +125,7 @@ public class HuobiWebSocketTradeApi extends HuobiWebSocketApiBase {
   }
 
   public void login() {
-    sendAuth(HuobiContants.ACCESS_KEY, HuobiContants.SECRET_KEY, HuobiContants.SIGN_HOST);
+    sendAuth(accessKey, secretKey, HuobiContants.SIGN_HOST);
   }
 
   /**

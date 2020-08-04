@@ -36,7 +36,7 @@ public class ProxyConfiguration extends Entitys implements Serializable {
   private String server;
 
   @Column(nullable = false)
-  private Long port;
+  private int port;
 
   @Column(nullable = false)
   private boolean status;
@@ -72,11 +72,11 @@ public class ProxyConfiguration extends Entitys implements Serializable {
     this.server = defaultModel;
   }
 
-  public Long getPort() {
+  public int getPort() {
     return port;
   }
 
-  public void setPort(Long port) {
+  public void setPort(int port) {
     this.port = port;
   }
 
@@ -86,5 +86,15 @@ public class ProxyConfiguration extends Entitys implements Serializable {
 
   public void setStatus(boolean status) {
     this.status = status;
+  }
+
+  @Override
+  public String toString() {
+    return "ProxyConfiguration{" +
+        "protocol='" + protocol + '\'' +
+        ", server='" + server + '\'' +
+        ", port=" + port +
+        ", status=" + status +
+        '}';
   }
 }

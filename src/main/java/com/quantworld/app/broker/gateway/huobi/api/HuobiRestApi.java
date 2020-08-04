@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.HashBiMap;
+import com.quantworld.app.QWContext;
 import com.quantworld.app.broker.gateway.BaseGateway;
 import com.quantworld.app.broker.gateway.LocalOrderManager;
 import com.quantworld.app.broker.gateway.huobi.HuobiContants;
@@ -35,6 +36,8 @@ import com.quantworld.app.data.constants.ExchangeEnum;
 import com.quantworld.app.data.constants.OrderTypeEnum;
 import com.quantworld.app.data.constants.ProductEnum;
 import com.quantworld.app.data.constants.StatusEnum;
+import com.quantworld.app.domain.Exchange;
+import com.quantworld.app.repository.ExchangeRepository;
 import com.quantworld.app.utils.DateUtils;
 import com.quantworld.app.utils.ProxyUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -70,6 +73,7 @@ public class HuobiRestApi extends RestTemplate {
   private LocalOrderManager orderManager;
 
   private static HashBiMap<DirectionEnum, String> DIRECTION_MAP = HashBiMap.create();
+
   private static HashBiMap<OrderTypeEnum, String> ORDER_TYPE_MAP = HashBiMap.create();
 
   static {
@@ -78,6 +82,10 @@ public class HuobiRestApi extends RestTemplate {
     ORDER_TYPE_MAP.put(OrderTypeEnum.MARKET, "market");
     ORDER_TYPE_MAP.put(OrderTypeEnum.LIMIT, "limit");
   }
+
+  private String accessKey;
+
+  private String secretKey;
 
   public HuobiRestApi(BaseGateway gateway) {
     this.gateway = gateway;
@@ -88,6 +96,11 @@ public class HuobiRestApi extends RestTemplate {
     factory.setConnectTimeout(3000);
     factory.setReadTimeout(3000);
     super.setRequestFactory(factory);
+
+    ExchangeRepository exchangeRepository = (ExchangeRepository) QWContext.getBean(ExchangeRepository.NAME);
+    Exchange huobi = exchangeRepository.findByExchange("HUOBI");
+    accessKey = huobi.getAccessKey();
+    secretKey = huobi.getSecretKey();
   }
 
   public void queryAccount() {
@@ -387,7 +400,7 @@ public class HuobiRestApi extends RestTemplate {
   }
 
   private String createRequestUrl(String address, String method) {
-    UrlParamsBuilder builder = ApiSignature.createSignature(HuobiContants.ACCESS_KEY, HuobiContants.SECRET_KEY, method, HuobiContants.SIGN_HOST, address);
+    UrlParamsBuilder builder = ApiSignature.createSignature(accessKey, secretKey, method, HuobiContants.SIGN_HOST, address);
     return builder.buildUrl();
   }
 

@@ -16,26 +16,30 @@
  */
 package com.quantworld.app.utils;
 
+import com.quantworld.app.QWContext;
+import com.quantworld.app.domain.ProxyConfiguration;
+import com.quantworld.app.repository.ProxyRepository;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.util.List;
 
 public class ProxyUtil {
   private static final Logger logger = LoggerFactory.getLogger(ProxyUtil.class);
 
-  @NotNull
   public static Proxy getProxy() {
-    String osName = System.getProperties().getProperty("os.name");
-    String hostname;
-    if (osName.contains("Windows")) {
-      hostname = "127.0.0.1";
+    ProxyRepository repository = (ProxyRepository) QWContext.getBean(ProxyRepository.NAME);
+    List<ProxyConfiguration> proxyConfigurations = repository.findAll();
+    if (proxyConfigurations.isEmpty()) {
+      return null;
     } else {
-      hostname = "192.168.1.117";
+      ProxyConfiguration proxyConfiguration = proxyConfigurations.get(0);
+      logger.info("Proxy Setting:{}", proxyConfiguration.toString());
+      return new Proxy(Proxy.Type.valueOf(proxyConfiguration.getProtocol()),
+          new InetSocketAddress(proxyConfiguration.getServer(), proxyConfiguration.getPort()));
     }
-    logger.info("hostname:{}, OS System:{}", hostname, osName);
-    return new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(hostname, 10808));
   }
 }
