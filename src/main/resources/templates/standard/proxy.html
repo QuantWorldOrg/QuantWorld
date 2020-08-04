@@ -86,7 +86,7 @@
           success: function (response) {
             if (response.rspCode === '000000') {
               locationUrl('/standard/proxy', '');
-              toastr.success('交易所信息添加成功!', '操作成功');
+              toastr.success('代理服务器添加成功!', '操作成功');
             } else {
               toastr.error(response.rspMsg, '操作失败');
             }
