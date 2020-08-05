@@ -75,7 +75,8 @@ public class ExchangeController extends BaseController {
     } else if (StringUtils.isBlank(exchange.getExchange())) {
       return new ResponseData(ExceptionMsg.FAILED, "交易所名不可为空！");
     }
-    exchangeRepository.delete(exchange);
+    exchangeRepository.deleteExchangeByAccessKeyAndSecretKeyAndExchangeAndType(exchange.getAccessKey(),
+        exchange.getSecretKey(), exchange.getExchange(), exchange.getType());
     return new ResponseData(ExceptionMsg.SUCCESS);
   }
 }

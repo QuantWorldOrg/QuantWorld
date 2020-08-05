@@ -21,19 +21,19 @@
                 <form role="form">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
-                              v-model="type">
-                        <option value=""> -- 请选择 -- </option>
+                      <label for="type"></label><select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
+                                                        id="type">
+                        <option value=""> -- 请选择 --</option>
                         <option value="DIGICCY" selected="selected">数字货币</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
-                              v-model="exchange">
-                        <option value=""> -- 请选择 -- </option>
-                        <option value="HUOBI" selected="selected">火币</option>
+                      <select id="exchange"
+                              class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse">
+                        <option value=""> -- 请选择 --</option>
+                        <option value="HUOBI">火币</option>
                         <option value="BINANCE">币安</option>
                       </select>
                     </div>
@@ -48,22 +48,22 @@
                 <h3 class="panel-title ng-scope">配置参数</h3>
               </div>
               <div class="panel-body">
-                <form role="form">
+                <form id="addForm">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">
+                    <label for="accessKey">
                       Access Key
                     </label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" v-model="accessKey"/>
+                    <input type="text" class="form-control" id="accessKey"/>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">
+                    <label for="secretKey">
                       Secret Key
                     </label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" v-model="secretKey"/>
+                    <input type="password" class="form-control" id="secretKey"/>
                   </div>
                 </form>
                 <div class="col-md-12">
-                  <button type="submit" v-on:click="add" class="btn btn-block btn-primary mt-lg">
+                  <button type="submit" id="addExchange" class="btn btn-block btn-primary mt-lg">
                     添加交易所
                   </button>
                 </div>
@@ -78,26 +78,30 @@
               <div class="col-md-3"
                    th:each="exchange : ${exchangeList}">
                 <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title ng-scope" th:name="${exchange.getType()}"
-                        th:text="${exchange.getType()}"></h3>
-                  </div>
-                  <div class="panel-body">
-                    <form>
-                      <label>交易所</label>
-                      <input type="text" class="form-control" th:name="*{exchange.getExchange()}"
-                             th:value="*{exchange.getExchange()}" readonly="readonly"/>
-                      <label>Access Key</label>
-                      <input type="text" class="form-control" th:name="*{exchange.getAccessKey()}"
-                             th:value="*{exchange.getAccessKey()}"/>
-                      <label>Secret Key</label>
-                      <input type="password" class="form-control" th:name="*{exchange.getSecretKey()}"
-                             th:value="*{exchange.getSecretKey()}"/>
-                    </form>
-                    <button type="submit" class="btn btn-block mt-lg btn btn-sm btn-danger">
-                      删除
-                    </button>
-                  </div>
+                  <form id="deleteForm">
+                    <div class="panel-heading">
+                      <h3 id="existedType" class="panel-title ng-scope" th:name="${exchange.getType()}"
+                          th:text="${exchange.getType()}"></h3>
+                    </div>
+                    <div class="panel-body">
+                      <label for="existedExchange">交易所</label><input id="existedExchange" type="text"
+                                                                     class="form-control"
+                                                                     th:name="*{exchange.getExchange()}"
+                                                                     th:value="*{exchange.getExchange()}"
+                                                                     readonly="readonly"/>
+                      <label for="existedAccessKey">Access Key</label><input id="existedAccessKey" type="text"
+                                                                             class="form-control"
+                                                                             th:name="*{exchange.getAccessKey()}"
+                                                                             th:value="*{exchange.getAccessKey()}"/>
+                      <label for="existedSecretKey">Secret Key</label><input id="existedSecretKey" type="password"
+                                                                             class="form-control"
+                                                                             th:name="*{exchange.getSecretKey()}"
+                                                                             th:value="*{exchange.getSecretKey()}"/>
+                      <button type="submit" id="deleteExchange" class="btn btn-block mt-lg btn btn-sm btn-danger">
+                        删除
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -113,61 +117,80 @@
 <script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
 <script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script>
 <script type='text/javascript' th:inline="javascript">
-  Vue.http.options.emulateJSON = true;
-  var registPage = new Vue({
-    el: '#exchangePage',
-    data: {
-      'type': '',
-      'exchange': '',
-      'accessKey': '',
-      'secretKey': ''
-    },
-    methods: {
-      add: function (event) {
-        var ok = $('#form').parsley().isValid({force: true});
-        if (!ok) {
-          return;
-        }
-        var datas = {
-          type: this.type,
-          exchange: this.exchange,
-          accessKey: this.accessKey,
-          secretKey: this.secretKey
-        };
-        this.$http.post('/exchange/add', JSON.stringify(datas)).then(function (response) {
-          if (response.data.rspCode == '000000') {
-            locationUrl('/standard/exchange','');
-            toastr.success('交易所信息添加成功!', '操作成功');
-          } else {
-            toastr.error(response.data.data, '操作成功');
+
+  $(function () {
+    toastr.options = {
+      'closeButton': true,
+      'positionClass': 'toast-top-center',
+      'timeOut': '5000',
+    };
+    $("#addExchange").click(function () {
+      var ok = $('#addForm').parsley().isValid({force: true});
+      var data = {
+        'type': $("#type").val(),
+        'exchange': $("#exchange").val(),
+        'accessKey': $("#accessKey").val(),
+        'secretKey': $("#secretKey").val(),
+      };
+
+      if (ok) {
+        $.ajax({
+          async: false,
+          type: 'POST',
+          dataType: 'json',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          url: '/exchange/add',
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(textStatus);
+            console.log(errorThrown);
+          },
+          success: function (response) {
+            if (response.rspCode === '000000') {
+              locationUrl('/standard/exchange', '');
+              toastr.success('交易所信息添加成功!', '操作成功');
+            } else {
+              toastr.error(response.rspMsg, '操作失败');
+            }
           }
-        }, function (response) {
-          console.log('error');
-        })
-      },
-      delete: function (event) {
-        var ok = $('#form').parsley().isValid({force: true});
-        if (!ok) {
-          return;
-        }
-        var datas = {
-          type: this.type,
-          exchange: this.exchange,
-          accessKey: this.accessKey,
-          secretKey: this.secretKey
-        };
-        this.$http.post('/exchange/delete', datas).then(function (response) {
-          if (response.data.rspCode == '000000') {
-            locationUrl('/standard/exchange','');
-            toastr.success('交易所信息添加成功!', '操作成功');
-          } else {
-            toastr.error('交易所信息添加失败!', '操作成功');
-          }
-        }, function (response) {
-          console.log('error');
-        })
+        });
       }
-    }
+    });
+
+    $("#deleteExchange").click(function () {
+      var ok = $('#deleteForm').parsley().isValid({force: true});
+      var data = {
+        'type': $("#existedType").text(),
+        'exchange': $("#existedExchange").val(),
+        'accessKey': $("#existedAccessKey").val(),
+        'secretKey': $("#existedSecretKey").val(),
+      };
+
+      if (ok) {
+        $.ajax({
+          async: false,
+          type: 'POST',
+          dataType: 'json',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          url: '/exchange/delete',
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(textStatus);
+            console.log(errorThrown);
+          },
+          success: function (response) {
+            if (response.rspCode === '000000') {
+              locationUrl('/standard/exchange', '');
+              toastr.success('交易所信息删除成功!', '操作成功');
+            } else {
+              toastr.error(response.rspMsg, '操作失败');
+            }
+          }
+        });
+      }
+    });
   });
 </script>
 </html>
