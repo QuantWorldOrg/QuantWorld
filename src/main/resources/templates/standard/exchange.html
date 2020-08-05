@@ -10,35 +10,35 @@
 <section>
   <div class="container-fluid">
     <div class="row" id="exchangePage">
-      <form id="form" data-parsley-validate="true" onsubmit="return false">
-        <div class="col-md-12">
+      <div class="col-md-12">
+        <form id="newExchangeForm" data-parsley-validate="true" onsubmit="return false">
           <div class="row">
             <div class="panel panel-default col-md-6">
               <div class="panel-heading">
                 <h3 class="panel-title ng-scope">交易所选择</h3>
               </div>
               <div class="panel-body">
-                <form role="form">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="type"></label><select class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse"
-                                                        id="type">
-                        <option value=""> -- 请选择 --</option>
-                        <option value="DIGICCY" selected="selected">数字货币</option>
-                      </select>
-                    </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="type">交易类型</label>
+                    <select id="type" class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse">
+                      <option value=""> -- 请选择 -- </option>
+                      <option value="DIGICCY">数字货币</option>
+                      <option value="DIGICCY1">数字货币1</option>
+                    </select>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <select id="exchange"
-                              class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse">
-                        <option value=""> -- 请选择 --</option>
-                        <option value="HUOBI">火币</option>
-                        <option value="BINANCE">币安</option>
-                      </select>
-                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exchangeName">交易所</label>
+                    <select id="exchangeName"
+                            class="form-control ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse">
+                      <option value=""> -- 请选择 -- </option>
+                      <option value="HUOBI">火币</option>
+                      <option value="BINANCE">币安</option>
+                    </select>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -70,44 +70,44 @@
               </div>
             </div>
           </div>
-          <div class="panel panel-default" th:if="*{exchangeList.size() > 0}">
-            <div class="panel-heading">
-              <h3 class="panel-title ng-scope">现存交易所信息</h3>
-            </div>
-            <div class="panel-body">
-              <div class="col-md-3"
-                   th:each="exchange : ${exchangeList}">
-                <div class="panel panel-default">
-                  <form id="deleteForm">
-                    <div class="panel-heading">
-                      <h3 id="existedType" class="panel-title ng-scope" th:name="${exchange.getType()}"
-                          th:text="${exchange.getType()}"></h3>
-                    </div>
-                    <div class="panel-body">
-                      <label for="existedExchange">交易所</label><input id="existedExchange" type="text"
-                                                                     class="form-control"
-                                                                     th:name="*{exchange.getExchange()}"
-                                                                     th:value="*{exchange.getExchange()}"
-                                                                     readonly="readonly"/>
-                      <label for="existedAccessKey">Access Key</label><input id="existedAccessKey" type="text"
-                                                                             class="form-control"
-                                                                             th:name="*{exchange.getAccessKey()}"
-                                                                             th:value="*{exchange.getAccessKey()}"/>
-                      <label for="existedSecretKey">Secret Key</label><input id="existedSecretKey" type="password"
-                                                                             class="form-control"
-                                                                             th:name="*{exchange.getSecretKey()}"
-                                                                             th:value="*{exchange.getSecretKey()}"/>
-                      <button type="submit" id="deleteExchange" class="btn btn-block mt-lg btn btn-sm btn-danger">
-                        删除
-                      </button>
-                    </div>
-                  </form>
-                </div>
+        </form>
+        <div class="panel panel-default" th:if="*{exchangeList.size() > 0}">
+          <div class="panel-heading">
+            <h3 class="panel-title ng-scope">现存交易所信息</h3>
+          </div>
+          <div class="panel-body">
+            <div class="col-md-3"
+                 th:each="exchange : ${exchangeList}">
+              <div class="panel panel-default">
+                <form id="deleteForm">
+                  <div class="panel-heading">
+                    <h3 id="existedType" class="panel-title ng-scope" th:name="${exchange.getType()}"
+                        th:text="${exchange.getType()}"></h3>
+                  </div>
+                  <div class="panel-body">
+                    <label for="existedExchange">交易所</label><input id="existedExchange" type="text"
+                                                                   class="form-control"
+                                                                   th:name="*{exchange.getExchange()}"
+                                                                   th:value="*{exchange.getExchange()}"
+                                                                   readonly="readonly"/>
+                    <label for="existedAccessKey">Access Key</label><input id="existedAccessKey" type="text"
+                                                                           class="form-control"
+                                                                           th:name="*{exchange.getAccessKey()}"
+                                                                           th:value="*{exchange.getAccessKey()}"/>
+                    <label for="existedSecretKey">Secret Key</label><input id="existedSecretKey" type="password"
+                                                                           class="form-control"
+                                                                           th:name="*{exchange.getSecretKey()}"
+                                                                           th:value="*{exchange.getSecretKey()}"/>
+                    <button type="submit" id="deleteExchange" class="btn btn-block mt-lg btn btn-sm btn-danger">
+                      删除
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </section>
@@ -125,10 +125,10 @@
       'timeOut': '5000',
     };
     $("#addExchange").click(function () {
-      var ok = $('#addForm').parsley().isValid({force: true});
+      var ok = $('#newExchangeForm').parsley().isValid({force: true});
       var data = {
         'type': $("#type").val(),
-        'exchange': $("#exchange").val(),
+        'exchange': $("#exchangeName").val(),
         'accessKey': $("#accessKey").val(),
         'secretKey': $("#secretKey").val(),
       };
@@ -158,39 +158,39 @@
       }
     });
 
-    $("#deleteExchange").click(function () {
-      var ok = $('#deleteForm').parsley().isValid({force: true});
-      var data = {
-        'type': $("#existedType").text(),
-        'exchange': $("#existedExchange").val(),
-        'accessKey': $("#existedAccessKey").val(),
-        'secretKey': $("#existedSecretKey").val(),
-      };
-
-      if (ok) {
-        $.ajax({
-          async: false,
-          type: 'POST',
-          dataType: 'json',
-          data: JSON.stringify(data),
-          contentType: 'application/json',
-          url: '/exchange/delete',
-          error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(XMLHttpRequest);
-            console.log(textStatus);
-            console.log(errorThrown);
-          },
-          success: function (response) {
-            if (response.rspCode === '000000') {
-              locationUrl('/standard/exchange', '');
-              toastr.success('交易所信息删除成功!', '操作成功');
-            } else {
-              toastr.error(response.rspMsg, '操作失败');
-            }
-          }
-        });
-      }
-    });
+    // $("#deleteExchange").click(function () {
+    //   var ok = $('#deleteForm').parsley().isValid({force: true});
+    //   var data = {
+    //     'type': $("#existedType").text(),
+    //     'exchange': $("#existedExchange").val(),
+    //     'accessKey': $("#existedAccessKey").val(),
+    //     'secretKey': $("#existedSecretKey").val(),
+    //   };
+    //
+    //   if (ok) {
+    //     $.ajax({
+    //       async: false,
+    //       type: 'POST',
+    //       dataType: 'json',
+    //       data: JSON.stringify(data),
+    //       contentType: 'application/json',
+    //       url: '/exchange/delete',
+    //       error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //         console.log(XMLHttpRequest);
+    //         console.log(textStatus);
+    //         console.log(errorThrown);
+    //       },
+    //       success: function (response) {
+    //         if (response.rspCode === '000000') {
+    //           locationUrl('/standard/exchange', '');
+    //           toastr.success('交易所信息删除成功!', '操作成功');
+    //         } else {
+    //           toastr.error(response.rspMsg, '操作失败');
+    //         }
+    //       }
+    //     });
+    //   }
+    // });
   });
 </script>
 </html>
