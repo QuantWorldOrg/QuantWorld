@@ -18,9 +18,9 @@ package com.quantworld.app.data.constants;
 
 import com.quantworld.app.trader.oms.strategies.teststrategy.TestParam;
 import com.quantworld.app.trader.oms.strategies.teststrategy.TestStrategy;
-import com.quantworld.app.trader.oms.strategies.triangle.DemoStrategy;
-import com.quantworld.app.trader.oms.strategies.triangle.DemoBasicGeneratorParam;
-import com.quantworld.app.trader.oms.strategies.triangle.DemoStrategyParam;
+import com.quantworld.app.trader.oms.strategies.demostrategy.DemoStrategy;
+import com.quantworld.app.trader.oms.strategies.demostrategy.DemoBasicGeneratorParam;
+import com.quantworld.app.trader.oms.strategies.demostrategy.DemoStrategyParam;
 
 /**
  * Here are the strategy template params, the enum element name should align with param property file name.

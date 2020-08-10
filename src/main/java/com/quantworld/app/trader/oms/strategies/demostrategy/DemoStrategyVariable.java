@@ -1,4 +1,4 @@
-package com.quantworld.app.trader.oms.strategies.triangle;
+package com.quantworld.app.trader.oms.strategies.demostrategy;
 
 import com.quantworld.app.trader.oms.strategies.StrategyVariable;
 import org.slf4j.Logger;

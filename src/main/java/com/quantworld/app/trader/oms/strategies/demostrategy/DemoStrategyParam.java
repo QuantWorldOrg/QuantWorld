@@ -1,9 +1,7 @@
-package com.quantworld.app.trader.oms.strategies.triangle;
+package com.quantworld.app.trader.oms.strategies.demostrategy;
 
-import com.quantworld.app.data.ContractData;
 import com.quantworld.app.data.constants.StrategyTemplateEnum;
 import com.quantworld.app.trader.oms.strategies.StrategyParam;
-import org.apache.commons.lang3.StringUtils;
 
 
 public class DemoStrategyParam extends StrategyParam {
