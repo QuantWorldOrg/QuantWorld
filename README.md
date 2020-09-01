@@ -61,16 +61,20 @@
 > [策略开发](https://github.com/QuantWorldOrg/QuantWorld/wiki/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AD%96%E7%95%A5%E5%BC%80%E5%8F%91)
 
 # 环境部署
-1. [开发环境部署](https://github.com/QuantWorldOrg/QuantWorld/wiki/%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BA)
-2. [生产环境部署](https://github.com/QuantWorldOrg/QuantWorld/wiki/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2)
+> [开发环境部署](https://github.com/QuantWorldOrg/QuantWorld/wiki/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2)
+
+> [生产环境部署](https://github.com/QuantWorldOrg/QuantWorld/wiki/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2)
+
 # 系统展示
 
 - 主页
 ![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-61.png)
-- 交易所展示
+- 交易- 交易所展示: 可以展示用户当前添加的所有交易所信息所展示
 ![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-59.png)
-- 策略库
+- 策略库: 展示所有添加的交易策略, 并且所有添加的策略都是可以针对多个标的
 ![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-62.png)
 ![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-63.png)
-- 个人资产
+- 代理设置: 为系统添加代理服务器信息
+![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-65.png)
+- 个人资产: 个人资产展示
 ![](https://github.com/SouthernYard/SouthernYard.github.io/blob/master/images/pasted-64.png)

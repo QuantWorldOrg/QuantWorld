@@ -1,4 +1,4 @@
-package com.quantworld.app.trader.oms.strategies.triangle;
+package com.quantworld.app.trader.oms.strategies.demostrategy;
 
 import com.alibaba.fastjson.JSONObject;
 import com.quantworld.app.data.constants.StrategyTemplateEnum;
