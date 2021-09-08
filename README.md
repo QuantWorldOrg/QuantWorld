@@ -1,6 +1,6 @@
 # 宽界(QuantWorld)[![LICENSE](https://img.shields.io/badge/License-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE) [![Badge](https://img.shields.io/badge/Link-996.icu-red.svg)](https://996.icu/#/zh_CN)
 
-[![使用IntelliJ IDEA开发维护](https://img.shields.io/badge/IntelliJ%20IDEA-提供支持-blue.svg)](https://www.jetbrains.com/?from=WxJava-weixin-java-tools)
+[![使用IntelliJ IDEA开发维护](https://img.shields.io/badge/IntelliJ%20IDEA-提供支持-blue.svg)](https://www.jetbrains.com)
 [![License](https://img.shields.io/badge/License-Apache--2.0-green)](https://opensource.org/licenses/Apache-2.0)
 
 宽界系统（以下简称宽界）是一个基于Java的开源量化交易系统，系统的完成情况可以参考组件部分。宽界主要由Admin, Broker, CEP, OMS, Application和BackTestEngine等6个部分组成。目前只完成了系统的大部分基础框架，一些细节功能还在完善中。
