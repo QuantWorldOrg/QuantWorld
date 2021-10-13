@@ -1,3 +1,8 @@
+# Deprecated
+1. 该项目存在架构缺陷和性能缺陷，已不再维护，有兴趣的朋友可以作为Demo项目玩玩。
+2. 对于缺陷的我已在博文中有解释 [Xronos: 架构设计-1](https://southernyard.github.io/2020/09/08/Xronos%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1-1/)
+3. 重构项目`Xronos`没有开源计划。
+
 # 宽界(QuantWorld)[![LICENSE](https://img.shields.io/badge/License-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE) [![Badge](https://img.shields.io/badge/Link-996.icu-red.svg)](https://996.icu/#/zh_CN)
 
 [![使用IntelliJ IDEA开发维护](https://img.shields.io/badge/IntelliJ%20IDEA-提供支持-blue.svg)](https://www.jetbrains.com)
