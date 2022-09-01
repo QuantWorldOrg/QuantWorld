@@ -26,7 +26,7 @@
     <mybatis.spring.boot.version>1.2.0</mybatis.spring.boot.version>
     <okhttp.version>3.10.0</okhttp.version>
     <org.apache.commons.version>3.8.1</org.apache.commons.version>
-    <org.jsoup.version>1.14.2</org.jsoup.version>
+    <org.jsoup.version>1.15.3</org.jsoup.version>
     <org.webjars.Eonasdan-bootstrap-datetimepicker.version>4.17.47</org.webjars.Eonasdan-bootstrap-datetimepicker.version>
     <org.webjars.bootstrap-table.version>1.15.5</org.webjars.bootstrap-table.version>
     <org.webjars.bower.version>3.3.6</org.webjars.bower.version>
