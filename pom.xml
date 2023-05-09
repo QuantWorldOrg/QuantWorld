@@ -36,7 +36,7 @@
     <org.webjars.vue.version>2.6.11</org.webjars.vue.version>
     <org.webjars.webjars-locator.version>0.33</org.webjars.webjars-locator.version>
     <org.webjars.bootstrap-switch.version>4.0.0-alpha.1</org.webjars.bootstrap-switch.version>
-    <org.testng.version>7.1.0</org.testng.version>
+    <org.testng.version>7.5.1</org.testng.version>
   </properties>
 
   <dependencies>
